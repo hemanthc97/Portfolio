@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#f7f4ef">
+<title>Hemanth Penumala — Manufacturing & Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Outfit:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── FORCE LIGHT MODE — PREVENT BROWSER DARK MODE INVERSION ── */
+:root { color-scheme: light only; }
+html { background: #f7f4ef !important; }
+@media (prefers-color-scheme: dark) {
+  html { background: #f7f4ef !important; filter: none !important; }
+  body { background: #f7f4ef !important; color: #1a1714 !important; }
+}
+
+/* ── DESIGN TOKENS ── */
+:root {
+  --bg: #f7f4ef;
+  --bg2: #f0ebe2;
+  --bg3: #e8e2d6;
+  --ink: #141210;
+  --ink2: #1e1b17;
+  --ink3: #282420;
+  --t: #1a1714;
+  --tm: rgba(26,23,20,0.78);
+  --ts: rgba(26,23,20,0.58);
+  --tx: rgba(26,23,20,0.28);
+  --gold: #a8731a;
+  --goldl: #c8922a;
+  --goldd: rgba(168,115,26,0.10);
+  --goldm: rgba(168,115,26,0.28);
+  --dk: #0e0d0b;
+  --dk2: #161410;
+  --dk3: #1e1b16;
+  --bdr: rgba(26,23,20,0.08);
+  --bdrm: rgba(26,23,20,0.13);
+  --bdrl: rgba(26,23,20,0.22);
+  --white: rgba(255,255,255,0.85);
+}
+
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; background: #f7f4ef !important; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: #f7f4ef !important;
+  color: #1a1714 !important;
+  overflow-x: hidden;
+  cursor: none;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold); }
+
+/* ── CUSTOM CURSOR ── */
+#CUR { position: fixed; pointer-events: none; z-index: 9999; }
+#CD {
+  width: 6px; height: 6px; background: var(--gold); border-radius: 50%;
+  position: absolute; transform: translate(-50%,-50%);
+  transition: width .25s, height .25s, background .25s;
+}
+#CR {
+  width: 28px; height: 28px; border: 1px solid var(--goldm);
+  border-radius: 50%; position: absolute; transform: translate(-50%,-50%);
+  transition: width .2s, height .2s, border-color .2s;
+}
+body.hov #CD { width: 10px; height: 10px; background: var(--goldl); }
+body.hov #CR { width: 42px; height: 42px; border-color: var(--gold); }
+
+/* Cursor trail */
+.trail-dot {
+  position: fixed; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--gold); pointer-events: none; z-index: 9990;
+  transform: translate(-50%,-50%); opacity: 0;
+  transition: opacity .1s;
+}
+
+/* ── PROGRESS BAR ── */
+#PROG {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 9888;
+  background: linear-gradient(90deg, var(--gold), var(--goldl));
+  width: 0; transition: width .08s linear;
+  box-shadow: 0 0 8px var(--goldm);
+}
+
+/* ── SECTION TRANSITION LINE ── */
+.section-line {
+  width: 100%; height: 1px; background: var(--bdr);
+  position: relative; overflow: hidden;
+}
+.section-line::after {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%;
+  height: 100%; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: lineSweep 2s ease infinite;
+}
+@keyframes lineSweep { to { left: 100%; } }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 800;
+  padding: 1rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: all .4s;
+}
+nav.stuck {
+  background: rgba(247,244,239,0.94);
+  backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid var(--bdr);
+  box-shadow: 0 2px 30px rgba(0,0,0,0.04);
+}
+.nlogo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-weight: 700;
+  color: var(--t); cursor: pointer;
+  letter-spacing: .01em; position: relative;
+}
+.nlogo::after {
+  content: ''; position: absolute; bottom: -1px; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width .3s; pointer-events: none;
+}
+.nlogo:hover::after { width: 100%; }
+.nlinks { display: flex; gap: 1.75rem; list-style: none; align-items: center; }
+.nlink {
+  font-size: .68rem; font-weight: 500; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--tm); cursor: pointer;
+  position: relative; transition: color .2s;
+}
+.nlink::after {
+  content: ''; position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width .25s; pointer-events: none;
+}
+.nlink:hover { color: var(--t); }
+.nlink:hover::after { width: 100%; }
+.ncta {
+  font-size: .62rem; font-weight: 500; letter-spacing: .14em;
+  text-transform: uppercase; padding: .55rem 1.4rem;
+  border: 1px solid var(--bdrl); color: var(--t);
+  cursor: pointer; display: inline-block;
+  transition: background .25s, color .25s, border-color .25s;
+  background: transparent;
+}
+.ncta:hover { background: var(--t); color: var(--bg); border-color: var(--t); }
+.ncta > span { position: relative; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr;
+  padding-top: 4rem;
+}
+#HCANV { position: absolute; inset: 0; z-index: 0; }
+
+/* Animated gradient mesh */
+.hero-mesh {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 75% 30%, rgba(168,115,26,.07) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 55% at 20% 75%, rgba(168,115,26,.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(168,115,26,.03) 0%, transparent 70%);
+  animation: meshPulse 8s ease-in-out infinite;
+}
+@keyframes meshPulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .7; transform: scale(1.02); }
+}
+
+/* Grid lines */
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(26,23,20,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,23,20,.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.5) 0%, transparent 75%);
+}
+
+.hero-l {
+  position: relative; z-index: 2;
+  padding: 4rem 3rem 4rem 5rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero-r {
+  position: relative; z-index: 2;
+  padding: 4rem 4rem 4rem 2rem;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+/* Hero badge */
+.hbadge {
+  display: inline-flex; align-items: center; gap: .6rem;
+  padding: .35rem .9rem; border: 1px solid var(--bdrm);
+  background: rgba(255,255,255,.5); backdrop-filter: blur(8px);
+  margin-bottom: 2.25rem; width: fit-content;
+  opacity: 0; animation: fadeUp .8s .1s ease forwards;
+}
+.hbadge-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); animation: dotBlink 2s infinite;
+}
+@keyframes dotBlink { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hbadge-txt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--tm);
+}
+
+/* Hero headline — word by word reveal */
+h1.htitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.8rem, 6vw, 7rem);
+  font-weight: 300; line-height: .93;
+  letter-spacing: -.03em; margin-bottom: 1.75rem;
+}
+.hw {
+  display: inline-block; overflow: hidden;
+  vertical-align: bottom; margin-right: .18em;
+}
+.hw-inner {
+  display: inline-block;
+  transform: translateY(110%); opacity: 0;
+  animation: wordUp .75s cubic-bezier(.16,1,.3,1) forwards;
+}
+.gold-line { color: var(--gold); font-style: italic; font-weight: 600; }
+@keyframes wordUp { to { transform: translateY(0); opacity: 1; } }
+
+/* Hero sub */
+.hsub {
+  font-size: 1.05rem; font-weight: 300; color: var(--tm);
+  max-width: 50ch; line-height: 1.82; margin-bottom: 2.5rem;
+  opacity: 0; animation: fadeUp .8s .85s ease forwards;
+}
+.hsub strong { color: var(--t); font-weight: 500; }
+
+/* Typewriter */
+.htw-row {
+  margin-bottom: 2.75rem; min-height: 1.4rem;
+  opacity: 0; animation: fadeUp .8s 1s ease forwards;
+}
+.htw {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .78rem; color: var(--gold); letter-spacing: .05em;
+}
+.twc { animation: dotBlink .7s infinite; }
+
+/* Hero CTAs */
+.hctas {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp .8s 1.15s ease forwards;
+}
+.btnfill {
+  background: var(--t); color: var(--bg);
+  padding: .88rem 2rem; font-size: .7rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  cursor: pointer; border: none;
+  transition: all .25s; position: relative; overflow: hidden;
+  display: inline-block;
+}
+.btnfill::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold);
+  transform: translateX(-101%);
+  transition: transform .28s cubic-bezier(.4,0,.2,1);
+  pointer-events: none;
+}
+.btnfill:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(14,13,11,.18); }
+.btnfill:hover::before { transform: translateX(0); }
+.btnfill span { position: relative; z-index: 1; }
+.btnline {
+  border: 1px solid var(--bdrm); color: var(--tm);
+  padding: .88rem 2rem; font-size: .7rem; font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase;
+  cursor: pointer; transition: all .25s; display: inline-block;
+}
+.btnline:hover { border-color: var(--bdrl); color: var(--t); transform: translateY(-2px); }
+
+/* Hero credentials */
+.hcreds {
+  display: flex; gap: 0; margin-top: 2.5rem;
+  opacity: 0; animation: fadeUp .8s 1.3s ease forwards;
+}
+.hcred {
+  padding: .75rem 1.25rem; border: 1px solid var(--bdr);
+  border-right: none; background: rgba(255,255,255,.4);
+  backdrop-filter: blur(8px); transition: background .2s;
+}
+.hcred:last-child { border-right: 1px solid var(--bdr); }
+.hcred:hover { background: rgba(255,255,255,.65); }
+.hcred-name { font-size: .9rem; font-weight: 600; color: var(--t); margin-bottom: .1rem; }
+.hcred-role { font-family: 'JetBrains Mono', monospace; font-size: .56rem; letter-spacing: .08em; text-transform: uppercase; color: var(--tm); }
+
+/* Hero right stats */
+.hstats {
+  display: flex; flex-direction: column; gap: 1px;
+  background: var(--bdr); border: 1px solid var(--bdr);
+  opacity: 0; animation: fadeUp .9s .5s ease forwards;
+}
+.hstat {
+  background: rgba(255,255,255,.5); backdrop-filter: blur(12px);
+  padding: 1.4rem 1.75rem; display: flex; align-items: center;
+  gap: 1.4rem; border-left: 3px solid transparent;
+  transition: all .3s; cursor: default; position: relative; overflow: hidden;
+}
+.hstat::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--goldd), transparent);
+  opacity: 0; transition: opacity .3s; pointer-events: none;
+}
+.hstat:hover { border-left-color: var(--gold); background: rgba(255,255,255,.75); }
+.hstat:hover::before { opacity: 1; }
+.hstat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.1rem; font-weight: 700; color: var(--gold);
+  line-height: 1; min-width: 80px;
+}
+.hstat-title { font-size: .83rem; font-weight: 500; color: var(--t); margin-bottom: .1rem; }
+.hstat-sub { font-size: .72rem; font-weight: 300; color: var(--tm); }
+
+/* Quote panel */
+.hquote {
+  background: var(--dk); padding: 1.75rem;
+  margin-top: 1px; position: relative; overflow: hidden;
+  border: 1px solid var(--bdr);
+}
+.hquote::before {
+  content: '"'; position: absolute; top: -1.5rem; left: 1.25rem;
+  font-family: 'Cormorant Garamond', serif; font-size: 7rem;
+  color: rgba(255,255,255,.04); line-height: 1; pointer-events: none;
+}
+.hquote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .98rem; font-style: italic;
+  color: rgba(255,255,255,.6); line-height: 1.62; position: relative;
+}
+.htags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: 1.1rem; }
+.htag {
+  font-family: 'JetBrains Mono', monospace; font-size: .52rem;
+  letter-spacing: .06em; padding: .22rem .58rem;
+  border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.38);
+  transition: all .2s; cursor: default;
+}
+.htag:hover { border-color: var(--goldm); color: var(--goldl); }
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute; bottom: 2.25rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: .5rem;
+  z-index: 2; opacity: 0;
+  animation: scrollHintAnim 1s 1.7s ease forwards;
+  transition: opacity .6s ease; pointer-events: none;
+}
+@keyframes scrollHintAnim {
+  0% { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  30% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  70% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+}
+@media(max-width:1100px){ .scroll-hint { display: none !important; } }
+.scroll-hint span {
+  font-family: 'JetBrains Mono', monospace; font-size: .5rem;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--ts);
+}
+.smouse { width: 18px; height: 28px; border: 1px solid var(--ts); border-radius: 9px; position: relative; }
+.swheel {
+  width: 2px; height: 5px; background: var(--gold); border-radius: 2px;
+  position: absolute; left: 50%; top: 4px;
+  transform: translateX(-50%); animation: swheel 1.8s infinite;
+}
+@keyframes swheel { 0%{opacity:1;top:4px} 100%{opacity:0;top:16px} }
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--dk); padding: 1rem 0; overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,.05);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.ticker-track {
+  display: flex; width: max-content;
+  animation: tickerRoll 30s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ti {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 0 2.25rem; border-right: 1px solid rgba(255,255,255,.06);
+  white-space: nowrap; cursor: default;
+}
+.ti:hover .ti-n { color: var(--goldl); }
+.ti-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 700; color: rgba(255,255,255,.55);
+  transition: color .2s;
+}
+.ti-l { font-size: .72rem; font-weight: 300; color: rgba(255,255,255,.3); }
+@keyframes tickerRoll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── SECTION BASE ── */
+.sect { padding: 8rem 5rem; position: relative; }
+.sect-ey {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .58rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .85rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.sect-ey::before { content: attr(data-n); color: var(--ts); font-size: .54rem; }
+.eydash { display: block; width: 2rem; height: 1px; background: var(--gold); opacity: .5; }
+h2.sect-t {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 3.8vw, 3.6rem); font-weight: 600;
+  letter-spacing: -.025em; line-height: 1.08; color: var(--t); margin-bottom: 1rem;
+}
+.sect-lead {
+  font-size: 1rem; font-weight: 300; color: var(--tm);
+  max-width: 60ch; line-height: 1.85; margin-bottom: 4rem;
+}
+
+/* ── REVEAL SYSTEM ── */
+.rv { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+.rv.on { opacity: 1; transform: translateY(0); }
+.rvl { opacity: 0; transform: translateX(-28px); transition: opacity .75s ease, transform .75s ease; }
+.rvl.on { opacity: 1; transform: translateX(0); }
+.rvr { opacity: 0; transform: translateX(28px); transition: opacity .75s ease, transform .75s ease; }
+.rvr.on { opacity: 1; transform: translateX(0); }
+.rvs { opacity: 0; transform: scale(.93); transition: opacity .75s ease, transform .75s ease; }
+.rvs.on { opacity: 1; transform: scale(1); }
+
+/* ── TRACK RECORD ── */
+.track-sect { background: var(--dk); }
+.track-sect .sect-ey { color: rgba(200,146,42,.9); }
+.track-sect .sect-ey::before { color: rgba(255,255,255,.25); }
+.track-sect h2.sect-t { color: rgba(255,255,255,.9); }
+.track-sect .sect-lead { color: rgba(255,255,255,.38); }
+
+/* Animated odometer counters */
+.odo-row {
+  display: grid; grid-template-columns: repeat(6,1fr);
+  gap: 1px; background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.06); margin-bottom: 4rem;
+}
+.odo-box {
+  background: var(--dk); padding: 1.75rem 1rem; text-align: center;
+  position: relative; overflow: hidden; transition: background .25s;
+}
+.odo-box::before {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 0; background: linear-gradient(to top, rgba(168,115,26,.08), transparent);
+  transition: height .3s; pointer-events: none;
+}
+.odo-box:hover { background: var(--dk2); }
+.odo-box:hover::before { height: 100%; }
+.odo-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.4rem; font-weight: 700; color: rgba(200,146,42,.9);
+  line-height: 1; margin-bottom: .35rem;
+  display: flex; align-items: baseline; justify-content: center; gap: .1em;
+}
+.odo-digit { display: inline-block; position: relative; }
+.odo-lbl { font-size: .67rem; font-weight: 300; color: rgba(255,255,255,.35); line-height: 1.45; }
+
+/* Track cards — smooth accordion */
+.tstack { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,.06); }
+.tcard {
+  background: var(--dk); overflow: hidden;
+  cursor: pointer; border-left: 3px solid transparent;
+  transition: all .3s;
+}
+.tcard:hover { background: var(--dk2); border-left-color: rgba(168,115,26,.4); }
+.tcard.open { border-left-color: rgba(200,146,42,.8); }
+.tcard-hd {
+  display: grid; grid-template-columns: 2.5fr 1.1fr auto;
+  align-items: center; gap: 2rem; padding: 1.6rem 2.25rem;
+}
+.tc-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.22rem;
+  font-weight: 600; color: rgba(255,255,255,.8); margin-bottom: .25rem;
+  transition: color .2s;
+}
+.tcard:hover .tc-title { color: rgba(255,255,255,.95); }
+.tc-ctx {
+  font-family: 'JetBrains Mono', monospace; font-size: .52rem;
+  letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.28);
+}
+.tc-m { text-align: right; }
+.tc-mn {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.6rem;
+  font-weight: 700; color: rgba(200,146,42,.85); line-height: 1;
+}
+.tc-ml { font-size: .65rem; color: rgba(255,255,255,.3); }
+.tc-tog {
+  font-family: 'JetBrains Mono', monospace; font-size: .95rem;
+  color: rgba(255,255,255,.3); transition: transform .35s, color .2s;
+  width: 20px; text-align: center;
+}
+.tcard.open .tc-tog { transform: rotate(45deg); color: rgba(200,146,42,.9); }
+.tc-bd { max-height: 0; overflow: hidden; transition: max-height .55s cubic-bezier(.4,0,.2,1); }
+.tcard.open .tc-bd { max-height: 520px; }
+.tc-bd-in {
+  border-top: 1px solid rgba(255,255,255,.06);
+  padding: 1.75rem 2.25rem;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 2.25rem;
+}
+.tc-lbl {
+  font-family: 'JetBrains Mono', monospace; font-size: .52rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(200,146,42,.7); margin-bottom: .55rem;
+}
+.tc-txt { font-size: .83rem; font-weight: 300; color: rgba(255,255,255,.58); line-height: 1.78; }
+.tc-txt strong { color: rgba(255,255,255,.82); font-weight: 500; }
+.tc-iq-row { grid-column: 1/-1; border-top: 1px solid rgba(255,255,255,.06); padding-top: 1.4rem; }
+.tc-iq {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.02rem;
+  font-style: italic; color: rgba(255,255,255,.4);
+  border-left: 2px solid var(--gold); padding-left: 1.2rem; line-height: 1.6;
+}
+
+/* ── POV SECTION ── */
+.pov-sect { background: var(--bg2); border-top: 1px solid var(--bdr); }
+.pov-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+.pcard {
+  background: var(--bg); border: 1px solid var(--bdr);
+  padding: 2.75rem 2.5rem; position: relative; overflow: hidden;
+  transition: all .35s; cursor: default;
+  transform-origin: center bottom;
+}
+.pcard:hover {
+  border-color: var(--bdrm); transform: translateY(-6px);
+  box-shadow: 0 24px 64px rgba(14,13,11,.1);
+}
+.pcard-glow {
+  position: absolute; width: 280px; height: 280px; border-radius: 50%;
+  pointer-events: none; opacity: 0; transition: opacity .4s;
+  filter: blur(80px); top: -100px; right: -80px;
+}
+.pcard:nth-child(1) .pcard-glow { background: rgba(91,79,207,.6); }
+.pcard:nth-child(2) .pcard-glow { background: rgba(168,115,26,.6); }
+.pcard:nth-child(3) .pcard-glow { background: rgba(29,122,110,.6); }
+.pcard:hover .pcard-glow { opacity: .06; }
+.pcard-num {
+  font-family: 'Cormorant Garamond', serif; font-size: 5.5rem;
+  font-weight: 700; color: rgba(14,13,11,.04); line-height: 1;
+  position: absolute; top: -.5rem; right: .75rem;
+  pointer-events: none; transition: color .4s;
+}
+.pcard:hover .pcard-num { color: rgba(14,13,11,.07); }
+.pcard-icon {
+  width: 30px; height: 30px; border: 1px solid var(--bdrm);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.4rem; font-size: .85rem; transition: border-color .3s;
+}
+.pcard:hover .pcard-icon { border-color: var(--gold); }
+.pct {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;
+  font-weight: 600; color: var(--t); line-height: 1.3; margin-bottom: 1.1rem;
+  transition: color .25s;
+}
+.pcard:hover .pct { color: var(--gold); }
+.pcb { font-size: .84rem; font-weight: 300; color: var(--tm); line-height: 1.88; }
+.pcb strong { color: var(--t); font-weight: 500; }
+.pcstat {
+  margin-top: 1.75rem; padding-top: 1.4rem; border-top: 1px solid var(--bdr);
+  display: flex; align-items: baseline; gap: .5rem;
+}
+.pcsn {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.8rem;
+  font-weight: 700; color: var(--gold);
+}
+.pcsl { font-size: .7rem; color: var(--ts); line-height: 1.4; }
+
+/* ── GLOBAL VIEW ── */
+.global-sect { background: var(--bg); }
+
+/* Maturity bar chart */
+.mat-wrap {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 5rem; align-items: start; margin-bottom: 5rem;
+}
+.mat-bars { display: flex; flex-direction: column; gap: 0; }
+.mc { border-bottom: 1px solid var(--bdr); padding: 1.6rem 0; }
+.mc:last-child { border-bottom: none; }
+.mc-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: .9rem; }
+.mc-name { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--t); }
+.mc-score { font-family: 'JetBrains Mono', monospace; font-size: .62rem; color: var(--ts); }
+.mc-bars-list { display: flex; flex-direction: column; gap: .5rem; }
+.mc-row { display: grid; grid-template-columns: 110px 1fr 36px; align-items: center; gap: .65rem; }
+.mc-lbl { font-family: 'JetBrains Mono', monospace; font-size: .52rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ts); }
+.mc-track { height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+.mc-fill { height: 100%; border-radius: 2px; width: 0; transition: width 1.3s cubic-bezier(.4,0,.2,1); }
+.mc-val { font-family: 'JetBrains Mono', monospace; font-size: .56rem; color: var(--ts); text-align: right; }
+
+/* Stage cards */
+.mat-stages { display: flex; flex-direction: column; gap: 1px; background: var(--bdr); border: 1px solid var(--bdr); }
+.msc {
+  background: var(--bg); padding: 1.4rem 1.75rem;
+  transition: all .3s; cursor: default; position: relative; overflow: hidden;
+  border-left: 3px solid transparent;
+}
+.msc::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--goldd), transparent); opacity: 0; transition: opacity .3s; pointer-events: none; }
+.msc:hover { background: var(--bg2); border-left-color: var(--gold); }
+.msc:hover::before { opacity: 1; }
+.msc.now { border-left-color: var(--gold); background: var(--goldd); }
+.msc-badge {
+  display: inline-block; font-family: 'JetBrains Mono', monospace;
+  font-size: .48rem; letter-spacing: .08em; padding: .18rem .45rem;
+  background: var(--gold); color: var(--bg); margin-bottom: .4rem; font-weight: 600;
+}
+.msc-flag { font-family: 'JetBrains Mono', monospace; font-size: .54rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: .35rem; }
+.msc-name { font-family: 'Cormorant Garamond', serif; font-size: 1.02rem; font-weight: 600; color: var(--t); margin-bottom: .45rem; }
+.msc-body { font-size: .8rem; font-weight: 300; color: var(--tm); line-height: 1.7; }
+.msc-body strong { color: var(--t); font-weight: 500; }
+
+/* Radar canvas */
+.radar-row {
+  display: grid; grid-template-columns: 380px 1fr;
+  gap: 4rem; align-items: center; margin-bottom: 5rem;
+}
+#RCANV { width: 380px; height: 380px; cursor: crosshair; }
+.ri-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.ri {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1rem 1.25rem; border: 1px solid transparent;
+  transition: all .25s; cursor: default;
+}
+.ri:hover { border-color: var(--bdr); background: var(--bg2); }
+.ri-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; margin-top: .38rem; }
+.ri-name { font-family: 'Cormorant Garamond', serif; font-size: .98rem; font-weight: 600; color: var(--t); margin-bottom: .3rem; }
+.ri-desc { font-size: .8rem; font-weight: 300; color: var(--tm); line-height: 1.7; }
+.ri-desc strong { color: var(--t); font-weight: 500; }
+
+/* Sequencing timeline */
+.seq-wrap {
+  background: var(--bg2); border: 1px solid var(--bdr);
+  padding: 2.75rem; margin-bottom: 5rem;
+}
+.seq-hd { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 600; color: var(--t); margin-bottom: .4rem; }
+.seq-sd { font-size: .84rem; font-weight: 300; color: var(--ts); margin-bottom: 2.25rem; max-width: 52ch; }
+.seq-track { position: relative; padding: 2rem 0; }
+.seq-line-bg { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--bdrm); }
+.seq-prog { position: absolute; left: 0; top: 50%; height: 1px; background: linear-gradient(90deg, var(--gold), var(--goldl)); width: 0; transition: width 2s .5s cubic-bezier(.4,0,.2,1); box-shadow: 0 0 6px var(--goldm); }
+.seq-steps { display: flex; position: relative; z-index: 1; }
+.sstep { flex: 1; display: flex; flex-direction: column; align-items: center; gap: .75rem; cursor: pointer; }
+.sdot-w { position: relative; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+.sdot { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--bdrm); background: var(--bg); transition: all .4s; z-index: 1; }
+.sring { position: absolute; inset: -6px; border-radius: 50%; border: 1px solid transparent; transition: all .4s; }
+.sstep.done .sdot { background: var(--gold); border-color: var(--gold); transform: scale(1.2); }
+.sstep.now .sdot { background: var(--bg); border-color: var(--gold); box-shadow: 0 0 0 4px var(--goldd); }
+.sstep.now .sring { border-color: var(--goldm); animation: ringPulse 2s infinite; }
+@keyframes ringPulse { 0%,100%{transform:scale(1);opacity:.5} 50%{transform:scale(1.5);opacity:0} }
+.sstep-lbl { font-family: 'JetBrains Mono', monospace; font-size: .53rem; letter-spacing: .07em; text-transform: uppercase; text-align: center; color: var(--ts); max-width: 8rem; line-height: 1.45; transition: color .3s; }
+.sstep.done .sstep-lbl, .sstep.now .sstep-lbl { color: var(--gold); }
+.sstep-yr { font-size: .68rem; color: var(--ts); text-align: center; }
+.sstep.done .sstep-yr { color: var(--tm); }
+.seq-info { min-height: 52px; margin-top: 1.25rem; padding: .85rem 1.25rem; background: var(--goldd); border-left: 2px solid var(--gold); font-size: .84rem; font-weight: 300; color: var(--tm); line-height: 1.65; opacity: 0; transition: opacity .3s; }
+.seq-info.show { opacity: 1; }
+
+/* Insight bento */
+.bento { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.bc {
+  border: 1px solid var(--bdr); padding: 2rem 2.25rem;
+  background: var(--bg); position: relative; overflow: hidden;
+  transition: all .35s; cursor: default;
+}
+.bc:hover { border-color: var(--bdrm); background: var(--bg2); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(14,13,11,.07); }
+.bc::before { content: '"'; position: absolute; top: -1.5rem; left: 1.5rem; font-family: 'Cormorant Garamond', serif; font-size: 7rem; color: rgba(168,115,26,.05); line-height: 1; pointer-events: none; }
+.bc-tag { font-family: 'JetBrains Mono', monospace; font-size: .54rem; letter-spacing: .15em; text-transform: uppercase; color: var(--gold); margin-bottom: .85rem; position: relative; }
+.bc-text { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; font-style: italic; color: var(--tm); line-height: 1.67; position: relative; }
+.bc-text strong { font-style: normal; color: var(--t); font-weight: 600; }
+.bc.wide { grid-column: 1/-1; }
+
+/* ── PRODUCTS ── */
+.prod-sect { background: var(--bg2); border-top: 1px solid var(--bdr); }
+.prod-nav { display: flex; border-bottom: 1px solid var(--bdrm); overflow-x: auto; }
+.ptab {
+  font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: 1rem 1.65rem; color: var(--ts); cursor: pointer;
+  border-bottom: 2px solid transparent; transition: all .25s;
+  white-space: nowrap; background: none;
+  border-top: none; border-left: none; border-right: none;
+  position: relative; overflow: hidden;
+}
+.ptab::before { content: ''; position: absolute; inset: 0; background: var(--goldd); transform: scaleY(0); transform-origin: bottom; transition: transform .25s; pointer-events: none; }
+.ptab:hover { color: var(--tm); }
+.ptab:hover::before { transform: scaleY(1); }
+.ptab.a { color: var(--gold); border-bottom-color: var(--gold); }
+.ptab span { position: relative; z-index: 1; }
+
+.ppanels { border: 1px solid var(--bdrm); border-top: none; background: var(--bg); }
+.ppanel { display: none; animation: fadeIn .35s ease; }
+.ppanel.a { display: grid; grid-template-columns: 1fr 1fr; }
+.ppl { padding: 3.25rem; border-right: 1px solid var(--bdr); }
+.ppr { padding: 3.25rem; background: var(--bg2); }
+.p-ey { font-family: 'JetBrains Mono', monospace; font-size: .54rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: .8rem; }
+.p-nm { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 700; color: var(--t); letter-spacing: -.02em; margin-bottom: .5rem; }
+.p-tg { font-size: .95rem; font-weight: 300; color: var(--ts); margin-bottom: 1.9rem; line-height: 1.6; }
+.plbl { font-family: 'JetBrains Mono', monospace; font-size: .53rem; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: .55rem; margin-top: 1.7rem; }
+.plbl:first-of-type { margin-top: 0; }
+.ptxt { font-size: .86rem; font-weight: 300; color: var(--tm); line-height: 1.82; }
+.ptxt strong { color: var(--t); font-weight: 500; }
+.pfeats { display: flex; flex-direction: column; border: 1px solid var(--bdr); margin-top: .5rem; }
+.pfeat {
+  padding: .8rem 1rem; border-bottom: 1px solid var(--bdr);
+  font-size: .82rem; font-weight: 300; color: var(--tm);
+  display: flex; align-items: flex-start; gap: .8rem;
+  transition: all .22s; cursor: default;
+}
+.pfeat:last-child { border-bottom: none; }
+.pfeat:hover { background: var(--bg2); color: var(--tm); }
+.pfeat::before { content: '→'; color: var(--gold); font-size: .72rem; flex-shrink: 0; margin-top: .04rem; transition: transform .2s; }
+.pfeat:hover::before { transform: translateX(4px); }
+.pquote { margin-top: 1.9rem; padding: 1.4rem 1.65rem; background: var(--bg2); border-left: 2px solid var(--gold); transition: background .25s; }
+.pquote:hover { background: var(--bg3); }
+.pqt { font-family: 'Cormorant Garamond', serif; font-size: 1.02rem; font-style: italic; color: var(--tm); line-height: 1.6; }
+.pmetrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--bdr); border: 1px solid var(--bdr); margin-top: 1.9rem; }
+.pm { background: var(--bg); padding: 1.2rem; text-align: center; transition: background .22s; }
+.pm:hover { background: var(--bg2); }
+.pm-n { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 700; color: var(--gold); }
+.pm-l { font-size: .66rem; color: var(--tm); margin-top: .18rem; }
+
+/* ── PRINCIPLES ── */
+.prin-sect { background: var(--bg); border-top: 1px solid var(--bdr); }
+.prings { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--bdr); }
+.pring {
+  padding: 2.65rem 2.2rem; border-right: 1px solid var(--bdr);
+  border-bottom: 1px solid var(--bdr); transition: all .35s;
+  position: relative; overflow: hidden; cursor: default;
+}
+.pring:nth-child(3n) { border-right: none; }
+.pring:nth-last-child(-n+3) { border-bottom: none; }
+.pring-ov { position: absolute; inset: 0; opacity: 0; transition: opacity .35s; pointer-events: none; }
+.pring:nth-child(1) .pring-ov { background: linear-gradient(135deg, rgba(91,79,207,.07), transparent); }
+.pring:nth-child(2) .pring-ov { background: linear-gradient(135deg, rgba(168,115,26,.07), transparent); }
+.pring:nth-child(3) .pring-ov { background: linear-gradient(135deg, rgba(29,122,110,.07), transparent); }
+.pring:nth-child(4) .pring-ov { background: linear-gradient(135deg, rgba(168,115,26,.07), transparent); }
+.pring:nth-child(5) .pring-ov { background: linear-gradient(135deg, rgba(61,92,56,.07), transparent); }
+.pring:nth-child(6) .pring-ov { background: linear-gradient(135deg, rgba(91,79,207,.07), transparent); }
+.pring:hover { background: var(--bg2); transform: translateY(-3px); box-shadow: 0 12px 36px rgba(14,13,11,.06); }
+.pring:hover .pring-ov { opacity: 1; }
+.pring-n { font-family: 'JetBrains Mono', monospace; font-size: .56rem; letter-spacing: .12em; color: var(--gold); margin-bottom: 1rem; position: relative; }
+.pring-title { font-family: 'Cormorant Garamond', serif; font-size: 1.18rem; font-weight: 600; color: var(--t); line-height: 1.35; margin-bottom: .82rem; position: relative; transition: color .25s; }
+.pring:hover .pring-title { color: var(--gold); }
+.pring-body { font-size: .82rem; font-weight: 300; color: var(--tm); line-height: 1.82; position: relative; }
+.pring-bg { position: absolute; bottom: -.75rem; right: .5rem; font-family: 'Cormorant Garamond', serif; font-size: 6.5rem; font-weight: 700; color: rgba(14,13,11,.025); line-height: 1; pointer-events: none; }
+
+/* ── CONTACT ── */
+.contact-sect {
+  background: var(--dk2); padding: 9rem 5rem;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 7rem; align-items: start;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+.contact-hl {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem,4.5vw,4.5rem); font-weight: 300;
+  line-height: 1.02; letter-spacing: -.03em;
+  color: rgba(255,255,255,.88); margin-bottom: 1.2rem;
+}
+.contact-hl em { font-style: italic; font-weight: 600; color: var(--goldl); }
+.contact-desc { font-size: .93rem; font-weight: 300; color: rgba(255,255,255,.4); line-height: 1.82; margin-bottom: 2.5rem; max-width: 46ch; }
+.cbtns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 4rem; }
+.citems { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,.05); }
+.citem {
+  background: var(--dk2); padding: 1.4rem; display: flex;
+  align-items: flex-start; gap: 1.2rem; text-decoration: none;
+  transition: all .25s; position: relative; overflow: hidden;
+}
+.citem::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--gold); transition: width .25s; pointer-events: none; }
+.citem:hover { background: var(--dk3); padding-left: 2.2rem; }
+.citem:hover::after { width: 2px; }
+.citem-icon { font-size: .85rem; color: var(--goldl); flex-shrink: 0; margin-top: .14rem; font-family: 'JetBrains Mono', monospace; transition: transform .25s; }
+.citem:hover .citem-icon { transform: scale(1.15); }
+.citem-lbl { font-family: 'JetBrains Mono', monospace; font-size: .52rem; letter-spacing: .1em; text-transform: uppercase; color: var(--goldl); margin-bottom: .28rem; }
+.citem-val { font-size: .86rem; color: rgba(255,255,255,.38); font-weight: 300; transition: color .25s; }
+.citem:hover .citem-val { color: rgba(255,255,255,.65); }
+
+/* ── FOOTER ── */
+footer { background: var(--dk); border-top: 1px solid rgba(255,255,255,.05); padding: 1.5rem 5rem; display: flex; justify-content: space-between; align-items: center; }
+.fl { font-family: 'Cormorant Garamond', serif; font-size: .9rem; color: rgba(255,255,255,.3); }
+.fr { font-family: 'JetBrains Mono', monospace; font-size: .52rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.15); }
+
+/* ── CLIP-PATH SECTION REVEALS ── */
+.clip-reveal {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path .9s cubic-bezier(.16,1,.3,1);
+}
+.clip-reveal.on { clip-path: inset(0 0% 0 0); }
+
+/* ── SHIMMER ON TICKER NUMBERS ── */
+.ti-n {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 700; color: rgba(255,255,255,.55);
+  transition: color .2s; position: relative; overflow: hidden;
+}
+.ti-n::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(200,146,42,.4) 50%, transparent 100%);
+  transform: translateX(-100%); transition: transform .4s ease;
+}
+.ti:hover .ti-n { color: var(--goldl); }
+.ti:hover .ti-n::after { transform: translateX(100%); }
+
+/* ── FEATURE LIST STAGGER ── */
+.pfeats .pfeat {
+  opacity: 0; transform: translateX(-12px);
+  transition: opacity .4s ease, transform .4s ease, background .22s, color .22s;
+}
+.pfeats.visible .pfeat:nth-child(1) { opacity:1; transform:none; transition-delay:.05s; }
+.pfeats.visible .pfeat:nth-child(2) { opacity:1; transform:none; transition-delay:.12s; }
+.pfeats.visible .pfeat:nth-child(3) { opacity:1; transform:none; transition-delay:.19s; }
+.pfeats.visible .pfeat:nth-child(4) { opacity:1; transform:none; transition-delay:.26s; }
+.pfeats.visible .pfeat:nth-child(5) { opacity:1; transform:none; transition-delay:.33s; }
+.pfeats.visible .pfeat:nth-child(6) { opacity:1; transform:none; transition-delay:.40s; }
+
+/* ── PRODUCT TAB ACTIVE PULSE ── */
+.ptab.a {
+  color: var(--gold); border-bottom-color: var(--gold);
+  animation: tabPulse 2.5s ease-in-out infinite;
+}
+@keyframes tabPulse {
+  0%,100% { border-bottom-color: var(--gold); }
+  50% { border-bottom-color: var(--goldl); }
+}
+
+/* ── METRIC PANEL ANIMATION ── */
+.pm { background: var(--bg); padding: 1.2rem; text-align: center; transition: background .22s, transform .2s; }
+.pm:hover { background: var(--bg2); transform: translateY(-2px); }
+.pm-n {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.7rem;
+  font-weight: 700; color: var(--gold);
+  transition: transform .3s cubic-bezier(.16,1,.3,1);
+}
+.pm:hover .pm-n { transform: scale(1.08); }
+
+/* ── PARALLAX TRACK CARDS ── */
+.tcard { transition: all .3s, transform .1s linear; }
+
+/* ── GLOWING GOLD ACCENT LINE ── */
+.gold-line-accent {
+  display: block; width: 0; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--goldl), transparent);
+  transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  margin-bottom: 1rem;
+}
+.rv.on .gold-line-accent { width: 4rem; }
+
+/* ── SECTION EYEBROW SLIDE ── */
+.sect-ey {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .58rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .85rem;
+  display: flex; align-items: center; gap: .75rem;
+  overflow: hidden;
+}
+.sect-ey-inner { display: inline-flex; align-items: center; gap: .75rem; transform: translateY(120%); transition: transform .6s cubic-bezier(.16,1,.3,1); }
+.rv.on .sect-ey-inner,
+.rvl.on .sect-ey-inner,
+.sect-ey-inner.show { transform: translateY(0); }
+
+/* ── FLOATING CARD INSIDE HERO ── */
+@keyframes floatCard { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* ── BACKGROUND GRAIN ── */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 9995; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: .35; mix-blend-mode: multiply;
+}
+
+/* ── HOVER LIFT ON STAT CARDS ── */
+.hstat { transition: all .3s, border-left-color .2s; }
+.hstat:hover { transform: translateX(4px); }
+
+/* ── PCARD 3D PERSPECTIVE CONTAINER ── */
+.pov-grid { perspective: 1200px; }
+
+/* ── ANIMATED UNDERLINE ON PRODUCT TAGLINE ── */
+.p-tg { position: relative; }
+.p-tg::after {
+  content: ''; position: absolute; bottom: -6px; left: 0;
+  width: 0; height: 1px; background: var(--gold);
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+}
+.ppanel.a .p-tg::after { width: 3rem; }
+
+/* ── CONTACT SECTION LINE ANIMATION ── */
+.contact-sect::before {
+  content: ''; display: block; width: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200,146,42,.4), transparent);
+  margin-bottom: 0; animation: none;
+}
+
+/* ── STAT NUMBER GLOW ON HOVER ── */
+.hstat:hover .hstat-num { text-shadow: 0 0 20px rgba(168,115,26,.4); }
+
+/* ── PRINCIPLE BG NUMBER REVEAL ── */
+.pring-bg { transition: opacity .35s, transform .35s; opacity: 1; }
+.pring:hover .pring-bg { transform: scale(1.1) translateX(-5px); }
+
+/* ── MATURITY STAGE HOVER INDICATOR ── */
+.msc { transition: all .3s, padding-left .25s; }
+.msc:not(.now):hover { padding-left: 2.25rem; }
+
+/* ── BENTO CARD QUOTE MARK REVEAL ── */
+.bc::before { transition: color .35s, font-size .35s; }
+.bc:hover::before { color: rgba(168,115,26,.12); font-size: 8rem; }
+
+/* ── TRACK CARD INSIGHT QUOTE SLIDE ── */
+.tc-iq { transition: color .3s, border-color .3s; }
+.tcard.open .tc-iq { color: rgba(255,255,255,.55); border-color: var(--goldl); }
+
+/* ── CORE ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+@media(max-width:1100px){
+  nav{padding:1rem 1.5rem}
+  .hero{grid-template-columns:1fr}
+  .hero-r{display:none}
+  .hero-l{padding:5.5rem 1.5rem 3rem}
+  .sect{padding:5rem 1.5rem}
+  h2.sect-t{font-size:clamp(2.2rem,7vw,3rem)}
+  h1.htitle{font-size:clamp(3.2rem,10vw,5rem)}
+  .pov-grid,.bento,.mat-wrap{grid-template-columns:1fr}
+  .bc.wide{grid-column:auto}
+  .radar-row{grid-template-columns:1fr;gap:3rem}
+  #RCANV{width:100%;max-width:320px;height:320px}
+  .odo-row{grid-template-columns:repeat(3,1fr)}
+  .tcard-hd{grid-template-columns:1fr auto}
+  .tc-m{display:none}
+  .tc-bd-in{grid-template-columns:1fr}
+  .ppanel.a{grid-template-columns:1fr}
+  .ppl{border-right:none;border-bottom:1px solid var(--bdr)}
+  .prings{grid-template-columns:1fr}
+  .pring{border-right:none}
+  .pring:nth-last-child(-n+3){border-bottom:1px solid var(--bdr)}
+  .pring:last-child{border-bottom:none}
+  .contact-sect{grid-template-columns:1fr;gap:3rem;padding:5rem 1.5rem}
+  footer{flex-direction:column;gap:.5rem;text-align:center;padding:1.5rem}
+  #CUR{display:none}
+  body{cursor:auto}
+  .hcreds{flex-wrap:wrap}
+  .pcard{transform:none !important}
+  .pring{transform:none !important}
+  .tc-title{font-size:1rem}
+  .p-nm{font-size:1.9rem}
+  .pcsn{font-size:1.6rem}
+  .hstat-num{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="CUR"><div id="CD"></div><div id="CR"></div></div>
+<div id="PROG"></div>
+
+<!-- NAV -->
+<nav id="NAV">
+  <span onclick="scrollTo({top:0,behavior:'smooth'})" class="nlogo">Hemanth Penumala</span>
+  <ul class="nlinks">
+    <li><span onclick="nav('track')" class="nlink">Track Record</span></li>
+    <li><span onclick="nav('pov')" class="nlink">Perspective</span></li>
+    <li><span onclick="nav('global')" class="nlink">Global View</span></li>
+    <li><span onclick="nav('products')" class="nlink">Products</span></li>
+    <li><span onclick="nav('principles')" class="nlink">Principles</span></li>
+    <li><span onclick="nav('contact')" class="ncta"><span>Contact</span></span></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <canvas id="HCANV"></canvas>
+  <div class="hero-mesh"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-l">
+    <div class="hbadge">
+      <div class="hbadge-dot"></div>
+      <span class="hbadge-txt">Manufacturing · Supply Chain · Digital Transformation</span>
+    </div>
+
+    <h1 class="htitle" id="HTITLE" aria-label="The thinking that shapes India's industrial future"></h1>
+
+    <p class="hsub">
+      The next decade will determine whether Indian manufacturing becomes a global force or remains a cost-competitive footnote. That outcome won't be decided by capital or policy.
+      <strong>It will be decided by the quality of thinking behind the programs that execute it.</strong>
+    </p>
+
+    <div class="htw-row"><span class="htw" id="TW"></span><span class="twc">|</span></div>
+
+    <div class="hctas">
+      <span onclick="nav('track')" class="btnfill"><span>Explore the Work</span></span>
+      <span onclick="nav('products')" class="btnline">See Products Built</span>
+    </div>
+
+    <div class="hcreds">
+      <div class="hcred">
+        <div class="hcred-name">Shahi Exports</div>
+        <div class="hcred-role">Transformation Lead</div>
+      </div>
+      <div class="hcred">
+        <div class="hcred-name">Deloitte India</div>
+        <div class="hcred-role">Consultant</div>
+      </div>
+      <div class="hcred">
+        <div class="hcred-name">IIM Kozhikode</div>
+        <div class="hcred-role">MBA · Top 10%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-r">
+    <div class="hstats">
+      <div class="hstat rv">
+        <div class="hstat-num" data-count="24" data-suffix="">24</div>
+        <div><div class="hstat-title">Plants Transformed</div><div class="hstat-sub">MES, WMS & automation across production network</div></div>
+      </div>
+      <div class="hstat rv" style="transition-delay:.1s">
+        <div class="hstat-num" data-count="800" data-suffix="+">800+</div>
+        <div><div class="hstat-title">Vendor Relationships</div><div class="hstat-sub">Managed via structured supplier collaboration platform</div></div>
+      </div>
+      <div class="hstat rv" style="transition-delay:.2s">
+        <div class="hstat-num">4 yrs</div>
+        <div><div class="hstat-title">Deep Industry Immersion</div><div class="hstat-sub">India's largest apparel manufacturer · Shahi Exports</div></div>
+      </div>
+      <div class="hstat rv" style="transition-delay:.3s">
+        <div class="hstat-num">₹200Cr+</div>
+        <div><div class="hstat-title">Cumulative Business Impact</div><div class="hstat-sub">Across transformation portfolio at Shahi & Deloitte</div></div>
+      </div>
+      <div class="hquote rv" style="transition-delay:.4s">
+        <div class="hquote-text">"India's manufacturing transformation is not a technology problem. It is a sequencing problem — and most programs currently underway are solving the wrong version of it."</div>
+        <div class="htags">
+          <span class="htag">Manufacturing</span>
+          <span class="htag">Supply Chain</span>
+          <span class="htag">ERP · MES · WMS</span>
+          <span class="htag">AI & Automation</span>
+          <span class="htag">Product Development</span>
+          <span class="htag">Six Sigma GB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint" id="SCROLLHINT">
+    <span>Scroll</span>
+    <div class="smouse"><div class="swheel"></div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TICKER
+══════════════════════════════════════════ -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ti"><span class="ti-n">+22%</span><span class="ti-l">OTIF Improvement</span></div>
+    <div class="ti"><span class="ti-n">24</span><span class="ti-l">Plants Transformed</span></div>
+    <div class="ti"><span class="ti-n">+18%</span><span class="ti-l">Throughput Gain</span></div>
+    <div class="ti"><span class="ti-n">−70%</span><span class="ti-l">Manual Effort Cut</span></div>
+    <div class="ti"><span class="ti-n">800+</span><span class="ti-l">Vendors Managed</span></div>
+    <div class="ti"><span class="ti-n">90%</span><span class="ti-l">WMS Adoption Rate</span></div>
+    <div class="ti"><span class="ti-n">₹200Cr+</span><span class="ti-l">Business Impact</span></div>
+    <div class="ti"><span class="ti-n">IIM K</span><span class="ti-l">Top 10% MBA</span></div>
+    <div class="ti"><span class="ti-n">+22%</span><span class="ti-l">OTIF Improvement</span></div>
+    <div class="ti"><span class="ti-n">24</span><span class="ti-l">Plants Transformed</span></div>
+    <div class="ti"><span class="ti-n">+18%</span><span class="ti-l">Throughput Gain</span></div>
+    <div class="ti"><span class="ti-n">−70%</span><span class="ti-l">Manual Effort Cut</span></div>
+    <div class="ti"><span class="ti-n">800+</span><span class="ti-l">Vendors Managed</span></div>
+    <div class="ti"><span class="ti-n">90%</span><span class="ti-l">WMS Adoption Rate</span></div>
+    <div class="ti"><span class="ti-n">₹200Cr+</span><span class="ti-l">Business Impact</span></div>
+    <div class="ti"><span class="ti-n">IIM K</span><span class="ti-l">Top 10% MBA</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TRACK RECORD — CREDIBILITY FIRST
+══════════════════════════════════════════ -->
+<section class="track-sect sect" id="track">
+  <div class="sect-ey" data-n="01"><div class="sect-ey-inner"><span class="eydash" style="background:rgba(200,146,42,.7)"></span>Track Record</div></div>
+  <h2 class="sect-t rv">Programs delivered.<br>Outcomes that held.</h2>
+  <p class="sect-lead rv">Six transformation programs — what was broken, what the common approach would have missed, what was actually built, and why it worked beyond go-live. Outcomes are directional, attributed to multiple factors across each program.</p>
+
+  <div class="odo-row rv">
+    <div class="odo-box"><div class="odo-num"><span class="odo-digit" data-target="22" data-suffix="%">0</span><span style="font-size:1.5rem">%</span></div><div class="odo-lbl">OTIF Improvement<br>Supplier Platform</div></div>
+    <div class="odo-box"><div class="odo-num"><span class="odo-digit" data-target="18" data-suffix="%">0</span><span style="font-size:1.5rem">%</span></div><div class="odo-lbl">Throughput Gain<br>MES Deployment</div></div>
+    <div class="odo-box"><div class="odo-num"><span class="odo-digit" data-target="35" data-suffix="%">0</span><span style="font-size:1.5rem">%</span></div><div class="odo-lbl">Dock-to-Stock Gain<br>WMS Rollout</div></div>
+    <div class="odo-box"><div class="odo-num"><span class="odo-digit" data-target="70" data-suffix="%">0</span><span style="font-size:1.5rem">%</span></div><div class="odo-lbl">Manual Effort Cut<br>LLM Extraction</div></div>
+    <div class="odo-box"><div class="odo-num"><span class="odo-digit" data-target="55" data-suffix="%">0</span><span style="font-size:1.5rem">%</span></div><div class="odo-lbl">Status Query Drop<br>Buyer Portal</div></div>
+    <div class="odo-box"><div class="odo-num"><span class="odo-digit" data-target="45" data-suffix="%">0</span><span style="font-size:1.5rem">%</span></div><div class="odo-lbl">Processing Errors Cut<br>Order Automation</div></div>
+  </div>
+
+  <div class="tstack">
+    <!-- Card 1 -->
+    <div class="tcard rv" onclick="toggleT(this)">
+      <div class="tcard-hd">
+        <div><div class="tc-title">Supplier Collaboration Platform · 800+ Vendors</div><div class="tc-ctx">Shahi Exports · Procurement & Logistics · 2023–24</div></div>
+        <div class="tc-m"><div class="tc-mn">+22% OTIF</div><div class="tc-ml">−30% Lead Time</div></div>
+        <div class="tc-tog">+</div>
+      </div>
+      <div class="tc-bd"><div class="tc-bd-in">
+        <div><div class="tc-lbl">The Situation</div><div class="tc-txt">800+ vendors. POs via email. ASN confirmations informal. GRN actuals unused in ERP. Sourcing decisions made on gut and relationship — not performance data. Delivery failures were diagnosed after the fact, never anticipated.</div></div>
+        <div><div class="tc-lbl">What Most Programs Would Have Done</div><div class="tc-txt">Deploy SRM module, run big-bang onboarding, declare the portal live, measure by login rates. <strong>The scorecard would have gone stale within 90 days.</strong> Non-compliant vendors managed by email — exactly as before.</div></div>
+        <div><div class="tc-lbl">What Was Actually Built</div><div class="tc-txt">Vendor scorecard auto-generated from ERP GRN data — no manual entry. Onboarding in 3 cohorts with SLA accountability. <strong>Vendor success motion built before the portal launched.</strong> TnA alert logic designed with operations, not handed down by IT.</div></div>
+        <div class="tc-iq-row"><div class="tc-iq">"The hardest part wasn't the technology. It was getting 800 suppliers to change how they communicate — and building a success motion that made adoption stick rather than chasing it."</div></div>
+      </div></div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="tcard rv" onclick="toggleT(this)">
+      <div class="tcard-hd">
+        <div><div class="tc-title">MES Deployment · 24 Manufacturing Plants</div><div class="tc-ctx">Shahi Exports · Production Engineering · 2023–24</div></div>
+        <div class="tc-m"><div class="tc-mn">+18% Throughput</div><div class="tc-ml">−50% MTTR</div></div>
+        <div class="tc-tog">+</div>
+      </div>
+      <div class="tc-bd"><div class="tc-bd-in">
+        <div><div class="tc-lbl">The Situation</div><div class="tc-txt">24 plants. Production tracking on whiteboards and verbal reports. Downtime recorded retrospectively. Line balancing by intuition. The weekly review was always backward-looking, never forward-acting.</div></div>
+        <div><div class="tc-lbl">What Most Programs Would Have Done</div><div class="tc-txt">Deploy standard MES configuration simultaneously. Downtime codes defined by IT. WIP logic from vendor templates. <strong>Floor supervisors would have found workarounds within the first month.</strong></div></div>
+        <div><div class="tc-lbl">What Was Actually Built</div><div class="tc-txt">Downtime codes and WIP tracking co-designed with plant managers. Exception design — <strong>what the system does when a supervisor bypasses it under deadline pressure — was answered first, not last.</strong> Site champions trained before go-live.</div></div>
+        <div class="tc-iq-row"><div class="tc-iq">"The factory floor doesn't lie. Every supervisor knows which line has a problem and why. The job was building a system they trusted enough to tell the truth into."</div></div>
+      </div></div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="tcard rv" onclick="toggleT(this)">
+      <div class="tcard-hd">
+        <div><div class="tc-title">WMS Rollout · 25 Warehouses</div><div class="tc-ctx">Shahi Exports · Supply Chain · 2023</div></div>
+        <div class="tc-m"><div class="tc-mn">+35% Dock-to-Stock</div><div class="tc-ml">90% Adoption Rate</div></div>
+        <div class="tc-tog">+</div>
+      </div>
+      <div class="tc-bd"><div class="tc-bd-in">
+        <div><div class="tc-lbl">The Situation</div><div class="tc-txt">25 warehouses with heterogeneous processes. Inventory accuracy variable. Dock-to-stock times long and inconsistent. A single configuration could not serve all 25 without either oversimplifying or over-engineering.</div></div>
+        <div><div class="tc-lbl">What Most Programs Would Have Done</div><div class="tc-txt">Define configuration in a workshop, deploy to all 25 rapidly. Unusual put-away requirements forced into a standard process that didn't fit. <strong>Adoption at 60% at best — technically counted as acceptable.</strong></div></div>
+        <div><div class="tc-lbl">What Was Actually Built</div><div class="tc-txt">3-warehouse pilot with explicit commitment to change the standard configuration before the next rollout. Workflow iterations from pilot learnings <strong>built into the standard before sites 4 through 25 went live.</strong></div></div>
+        <div class="tc-iq-row"><div class="tc-iq">"A pilot that can't change the configuration is a demonstration, not a pilot. The value is the learning it produces and whether it makes it into the next 22 sites."</div></div>
+      </div></div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="tcard rv" onclick="toggleT(this)">
+      <div class="tcard-hd">
+        <div><div class="tc-title">LLM-Powered Document Extraction · Finance & Compliance</div><div class="tc-ctx">Shahi Exports · Finance & IT · 2024</div></div>
+        <div class="tc-m"><div class="tc-mn">−70% Effort</div><div class="tc-ml">Audit-Ready Accuracy</div></div>
+        <div class="tc-tog">+</div>
+      </div>
+      <div class="tc-bd"><div class="tc-bd-in">
+        <div><div class="tc-lbl">The Situation</div><div class="tc-txt">Invoice and compliance document processing was manual and error-prone. Documents arrived in multiple formats. Significant hours per week spent on extraction before actual processing could begin. Audit trails incomplete.</div></div>
+        <div><div class="tc-lbl">What Most Programs Would Have Done</div><div class="tc-txt">Deploy AI extraction tool, set accuracy threshold based on vendor promise. <strong>Edge cases — handwritten annotations, non-standard formats — left to operations to handle manually, with no protocol and no audit trail.</strong></div></div>
+        <div><div class="tc-lbl">What Was Actually Built</div><div class="tc-txt">Human-in-the-loop protocol designed before the model went live. Accuracy thresholds set by the compliance team, not the AI vendor. <strong>Exception handling was the first thing built, not the last.</strong></div></div>
+        <div class="tc-iq-row"><div class="tc-iq">"The compliance team's trust depended on knowing the system would tell them when it was uncertain. An AI that never says 'I'm not sure' is an AI that cannot be audited."</div></div>
+      </div></div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="tcard rv" onclick="toggleT(this)">
+      <div class="tcard-hd">
+        <div><div class="tc-title">Production Tracking Portal · Global Buyers</div><div class="tc-ctx">Shahi Exports · Merchandising & IT · 2024</div></div>
+        <div class="tc-m"><div class="tc-mn">−55% Queries</div><div class="tc-ml">+20% Trust Scores</div></div>
+        <div class="tc-tog">+</div>
+      </div>
+      <div class="tc-bd"><div class="tc-bd-in">
+        <div><div class="tc-lbl">The Situation</div><div class="tc-txt">20+ global buyers sending daily status requests via email and WhatsApp. Merchandising team spending significant time answering questions production data could answer automatically. Buyer confidence eroding.</div></div>
+        <div><div class="tc-lbl">What Most Programs Would Have Done</div><div class="tc-txt">Build a comprehensive portal with every data point IT thought relevant. <strong>Buyers would have logged in once, found it overwhelming, and continued sending emails.</strong></div></div>
+        <div><div class="tc-lbl">What Was Actually Built</div><div class="tc-txt">Buyer friction analysis conducted before a single line of code was written. The portal was scoped entirely around the 6 questions buyers actually ask most. <strong>Nothing else was built.</strong></div></div>
+        <div class="tc-iq-row"><div class="tc-iq">"A portal that answers six questions perfectly eliminates more email than a portal that answers fifty questions adequately."</div></div>
+      </div></div>
+    </div>
+
+    <!-- Card 6 -->
+    <div class="tcard rv" onclick="toggleT(this)">
+      <div class="tcard-hd">
+        <div><div class="tc-title">Order-to-Execution Automation · 8 Departments</div><div class="tc-ctx">Shahi Exports · Operations · 2024</div></div>
+        <div class="tc-m"><div class="tc-mn">−45% Errors</div><div class="tc-ml">−70% Manual Effort</div></div>
+        <div class="tc-tog">+</div>
+      </div>
+      <div class="tc-bd"><div class="tc-bd-in">
+        <div><div class="tc-lbl">The Situation</div><div class="tc-txt">Order processing required sequential handoffs across 8 departments. Each handoff manual, each department with its own format. Errors introduced at any stage compounded downstream — discovered at the point where correction was most expensive.</div></div>
+        <div><div class="tc-lbl">What Most Programs Would Have Done</div><div class="tc-txt">Automate the current process as-is. Map, digitize, connect. <strong>The errors would have moved faster — not been eliminated.</strong></div></div>
+        <div><div class="tc-lbl">What Was Actually Built</div><div class="tc-txt">Error analysis first: where do errors originate and at what stage are they discovered? Requirements from all 6 functional heads before scope was locked. <strong>Automation designed around error prevention, not process digitization.</strong></div></div>
+        <div class="tc-iq-row"><div class="tc-iq">"Automating a broken process makes a broken process faster. Understanding where errors originate determines whether the outcome is 45% fewer errors or 45% faster errors."</div></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     POINT OF VIEW — NOW EARNED
+══════════════════════════════════════════ -->
+<section class="pov-sect sect" id="pov">
+  <div class="sect-ey" data-n="02"><div class="sect-ey-inner"><span class="eydash"></span>Point of View</div></div>
+  <h2 class="sect-t rv">Three things the industry<br>gets consistently wrong</h2>
+  <p class="sect-lead rv">Not observations borrowed from a consulting framework — patterns observed from running the programs above. The consistent difference between deployments that changed something and those that declared victory at go-live.</p>
+  <div class="pov-grid">
+    <div class="pcard rv">
+      <div class="pcard-glow"></div><div class="pcard-num">I</div>
+      <div class="pcard-icon">⚡</div>
+      <div class="pct">The deployment is not the transformation</div>
+      <div class="pcb">A large textile manufacturer spent ₹40 crore on a best-in-class MES. Eighteen months later, 60% of supervisors had reverted to manual tracking during peak season — not because the system failed technically, but because no one designed for the moment when a buyer deadline and a system login compete for the same thirty seconds.<br><br><strong>Bain's 2024 research found only 12% of business transformations achieve their original ambitions.</strong> The measurement framework of most manufacturing technology programs is built to declare success regardless of what happens on the floor. On-time delivery, training completion — green. OTIF, throughput, yield — unchanged.</div>
+      <div class="pcstat"><span class="pcsn">88%</span><span class="pcsl">of transformations fail to meet original ambitions<br>(Bain & Company, April 2024)</span></div>
+    </div>
+    <div class="pcard rv" style="transition-delay:.12s">
+      <div class="pcard-glow"></div><div class="pcard-num">II</div>
+      <div class="pcard-icon">📊</div>
+      <div class="pct">India's gap is data discipline, not technology</div>
+      <div class="pcb">A mid-sized manufacturing unit in Tiruppur and a comparable factory in Guangzhou run identical ERP software. The Guangzhou review takes forty minutes — data is clean, current, trusted. The Tiruppur review takes three hours reconciling what the system says against what the supervisor says, because nobody believes either.<br><br>China's manufacturing leap was built on upstream behavioral discipline — data entry habitual before anyone asked for analytics. <strong>Most AI investment flowing into Indian manufacturing today is not wrong in direction — it is wrong in sequence.</strong> The foundation comes first, and most programs skip it.</div>
+      <div class="pcstat"><span class="pcsn">50%</span><span class="pcsl">of ERP implementations fail on first attempt<br>(industry data, widely cited)</span></div>
+    </div>
+    <div class="pcard rv" style="transition-delay:.24s">
+      <div class="pcard-glow"></div><div class="pcard-num">III</div>
+      <div class="pcard-icon">🔗</div>
+      <div class="pct">60% of delivery risk lives outside the factory</div>
+      <div class="pcb">A shipment that misses its date costs 3–15% of order value in penalties and relationship damage. The standard response is to look inward — line efficiency, machine downtime, workforce productivity. The data is more inconvenient than that.<br><br>Analysis across large manufacturers points the same direction: <strong>late materials, quality rejections at inward inspection, and quantity shortfalls from suppliers account for the majority of shipment delays</strong> — not production inefficiency. The factory performs. The supplier ecosystem fails. And visibility into it barely exists until the failure has materialized.</div>
+      <div class="pcstat"><span class="pcsn">60–70%</span><span class="pcsl">of delivery risk originates in the supplier ecosystem,<br>not the factory floor</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     GLOBAL VIEW — RESEARCH WITH AUTHORITY
+══════════════════════════════════════════ -->
+<section class="global-sect sect" id="global">
+  <div class="sect-ey" data-n="03"><div class="sect-ey-inner"><span class="eydash"></span>Global Perspective</div></div>
+  <h2 class="sect-t rv">Where India sits on the<br>global maturity curve</h2>
+  <p class="sect-lead rv">A practitioner's map built from direct exposure to advanced manufacturing practices and four years of ground-level transformation work — not borrowed from a report.</p>
+
+  <!-- BAR CHART + STAGES -->
+  <div class="mat-wrap rv">
+    <div class="mat-bars" id="MATBARS"></div>
+    <div class="mat-stages">
+      <div class="msc"><div class="msc-flag">China · Germany · Japan</div><div class="msc-name">Predictive & Autonomous</div><div class="msc-body">Real-time shop-floor intelligence, AI-driven quality and maintenance, structured supplier data exchange as a baseline. Data discipline precedes technology — which is precisely why the technology works. Germany's Mittelstand manufacturing culture built precision habits before any software mandated it.</div></div>
+      <div class="msc"><div class="msc-flag">Vietnam · Bangladesh</div><div class="msc-name">Connected & Visible</div><div class="msc-body">ERP adoption widespread in large units. Buyer compliance requirements driving digital documentation faster than internal mandates. Real-time production tracking becoming standard. The gap is in the analytics and intelligence layer above the data.</div></div>
+      <div class="msc now"><div class="msc-badge">▶ India Now</div><div class="msc-flag">India · 2025</div><div class="msc-name">Transitional — High Variance</div><div class="msc-body">Large manufacturers have ERP and PLM. The mid-market is 5–7 years behind. Shop-floor data collection inconsistent. Analytics deployed but underutilised because upstream data is undisciplined. India has approximately 17,000 registered garment manufacturers (Appareify, 2023). <strong>A significant mid-market segment sits in a structural vacuum with no adequate tooling.</strong></div></div>
+      <div class="msc"><div class="msc-flag">India · Feasible by 2030</div><div class="msc-name">Intelligence-Driven</div><div class="msc-body">Achievable only if programs are sequenced correctly. Data discipline first. Operational visibility second. Predictive intelligence third. Manufacturers who get the sequence right in the next three years define the competitive landscape for the decade that follows.</div></div>
+    </div>
+  </div>
+
+  <!-- RADAR -->
+  <div class="radar-row rv">
+    <canvas id="RCANV" width="380" height="380"></canvas>
+    <div class="ri-list">
+      <div class="ri"><div class="ri-dot" style="background:#3d5c38"></div><div><div class="ri-name">Germany / Advanced Economies</div><div class="ri-desc">Industry 4.0 as national strategy since 2011. Data discipline embedded before digital tools arrived. <strong>Manufacturing leaders score 3.87/5.0 on the Digitopia Digital Maturity Index 2024.</strong> The technology sits on top of operational culture — not the other way around.</div></div></div>
+      <div class="ri"><div class="ri-dot" style="background:#3d5266"></div><div><div class="ri-name">China</div><div class="ri-desc">State-coordinated digitization, cluster-based investment, anchor manufacturers pulling supplier ecosystems into compliance. <strong>Over a decade, China channelled $912 billion through government venture capital funds into strategic sectors including AI</strong> (Stanford Research, 2024). Data discipline is a compliance requirement — which is why the AI tools actually work on top of it.</div></div></div>
+      <div class="ri"><div class="ri-dot" style="background:#a8731a"></div><div><div class="ri-name">India — Now</div><div class="ri-desc">More than two-thirds of large manufacturers embracing digitization (NASSCOM, 2025), but heavily skewed to large units. India has approximately 17,000 registered garment manufacturers (Appareify, 2023). <strong>A significant mid-market segment sits in a structural vacuum</strong> — too large for SMB tools, too small for enterprise implementations, and too fragmented to attract large technology vendors.</div></div></div>
+    </div>
+  </div>
+
+  <!-- SEQUENCING -->
+  <div class="seq-wrap rv">
+    <div class="seq-hd">The Correct Adoption Sequence</div>
+    <div class="seq-sd">Most programs fail by skipping Stages 2 and 3 to jump directly to 4 and 5 — because those are what go in the press release. Hover each stage to explore.</div>
+    <div class="seq-track" id="SEQT">
+      <div class="seq-line-bg"></div>
+      <div class="seq-prog" id="SEQP"></div>
+      <div class="seq-steps">
+        <div class="sstep done" data-info="Shop-floor data entry protocols, PO confirmation formats, inventory recording standards. Cannot be skipped without paying the price at every subsequent stage."><div class="sdot-w"><div class="sdot"></div><div class="sring"></div></div><div class="sstep-lbl">Data Collection Infrastructure</div><div class="sstep-yr">Foundation</div></div>
+        <div class="sstep done" data-info="Making data entry habitual, audited, and trusted. Without this, every analytics layer above produces outputs nobody believes and therefore nobody acts on."><div class="sdot-w"><div class="sdot"></div><div class="sring"></div></div><div class="sstep-lbl">Data Discipline & Trust</div><div class="sstep-yr">Pre-requisite</div></div>
+        <div class="sstep now" data-info="Where India's large manufacturers are today. Real-time dashboards, production tracking portals, live inventory views. The mid-market has not yet reached this stage — this is where LoomIQ plays."><div class="sdot-w"><div class="sdot"></div><div class="sring"></div></div><div class="sstep-lbl">Operational Visibility</div><div class="sstep-yr">India Large — Now</div></div>
+        <div class="sstep" data-info="Real-time supplier scorecards, TnA alerts, delivery risk prediction from vendor behavior patterns. The most underinvested layer in Indian manufacturing technology — and where the Supplier Intelligence Layer plays."><div class="sdot-w"><div class="sdot"></div><div class="sring"></div></div><div class="sstep-lbl">Supplier Intelligence</div><div class="sstep-yr">2026–2027</div></div>
+        <div class="sstep" data-info="Cross-system predictive models — efficiency + material availability + supplier reliability = delivery risk forecast. Requires clean data from all prior stages. Cannot be shortcut."><div class="sdot-w"><div class="sdot"></div><div class="sring"></div></div><div class="sstep-lbl">Predictive Analytics</div><div class="sstep-yr">2027–2028</div></div>
+        <div class="sstep" data-info="Self-optimising production schedules, autonomous supplier selection, AI-driven quality intervention. The destination — only reachable by traversing all prior stages without shortcuts."><div class="sdot-w"><div class="sdot"></div><div class="sring"></div></div><div class="sstep-lbl">AI Autonomy</div><div class="sstep-yr">2029–2030</div></div>
+      </div>
+    </div>
+    <div class="seq-info" id="SEQI">Hover a stage to understand what it requires and which products address it.</div>
+  </div>
+
+  <!-- BENTO -->
+  <div class="bento">
+    <div class="bc rv"><div class="bc-tag">Research Insight · Adoption Models</div><div class="bc-text">China's cluster-based, state-coordinated model cannot be replicated in India's fragmented, family-owned industrial base. <strong>The playbook has to be rebuilt from scratch</strong> — segmented by readiness, designed for low data maturity, with business outcomes pulling technology adoption rather than mandates pushing it.</div></div>
+    <div class="bc rv" style="transition-delay:.1s"><div class="bc-tag">Research Insight · The Generation-Skip Trap</div><div class="bc-text">Most manufacturers are jumping from paper-based tracking directly to AI-powered dashboards, bypassing the intermediate layer of clean operational data. <strong>The result is sophisticated software layered on undisciplined inputs.</strong> The dashboards look impressive in a board presentation. On the production floor, the supervisor still uses the whiteboard.</div></div>
+    <div class="bc wide rv" style="transition-delay:.05s"><div class="bc-tag">Research Insight · The Mid-Market Gap — The Critical Observation</div><div class="bc-text">Of India's approximately 17,000 registered garment manufacturers (Appareify, 2023), a significant mid-market segment sits between ₹50 Cr and ₹500 Cr revenue — <strong>too large for SMB tools, too small for enterprise implementations, and too fragmented to attract large technology vendors.</strong> This segment will define Indian manufacturing competitiveness by 2030. India's total textile and apparel exports stood at $34.4 billion in FY 2023–24 (Ministry of Textiles), with apparel alone contributing $14.5 billion — a sector whose competitiveness depends on the operational efficiency of mid-market manufacturers who currently lack the tools to achieve it.</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PRODUCTS
+══════════════════════════════════════════ -->
+<section class="prod-sect sect" id="products">
+  <div class="sect-ey" data-n="04"><span class="eydash"></span>Research & Products</div>
+  <h2 class="sect-t rv">Where conviction<br>becomes something real</h2>
+  <p class="sect-lead rv">Each product began as a specific observation — a gap seen repeatedly, studied carefully, and translated into a specification grounded in how these industries actually operate. These are the outputs of a deliberate research practice applied to the same industry in which the transformation work is done.</p>
+
+  <div class="prod-nav">
+    <button class="ptab a" onclick="showP('loomiq',this)"><span>LoomIQ</span></button>
+    <button class="ptab" onclick="showP('supplier',this)"><span>Supplier Intelligence</span></button>
+    <button class="ptab" onclick="showP('vendor',this)"><span>VendorLedger</span></button>
+    <button class="ptab" onclick="showP('quote',this)"><span>QuoteKit</span></button>
+    <button class="ptab" onclick="showP('order',this)"><span>OrderFlow</span></button>
+  </div>
+  <div class="ppanels">
+
+    <div class="ppanel a" id="pp-loomiq">
+      <div class="ppl">
+        <div class="p-ey">Manufacturing Intelligence · B2B SaaS</div>
+        <div class="p-nm">LoomIQ</div>
+        <div class="p-tg">The question a manufacturing COO actually asks on a Monday morning has never had a system built around it. Until now.</div>
+        <div class="plbl">The Observation</div>
+        <div class="ptxt">Running the weekly production review makes one thing clear: the question that actually matters — "which lines need intervention this week?" — takes two days to answer. An analyst pulls from Movex/M3, joins WFX quality data, reconciles against floor supervisor reports, and by the time it lands in the meeting, the intervention window has closed. <strong>The data existed. The intelligence didn't.</strong></div>
+        <div class="plbl">The Research Gap</div>
+        <div class="ptxt">Horizontal BI tools don't know that an efficiency drop on Line 4 plus a fabric shortfall in Category B means a delivery risk three weeks out. <strong>That causal chain is domain knowledge, not software capability.</strong> No existing tool encodes it. That is the gap — and the moat.</div>
+        <div class="plbl">What Was Built</div>
+        <div class="pfeats">
+          <div class="pfeat">Generic connectors — CSV, REST API, database — not integrations that break when the ERP changes</div>
+          <div class="pfeat">Factory Pulse: live efficiency, quality, capacity per line — intervention-first, not dashboard-first</div>
+          <div class="pfeat">Predictive risk engine: delivery risk and quality anomalies flagged before they materialise</div>
+          <div class="pfeat">Pre-loaded manufacturing intervention playbooks — specific actions, not generic suggestions</div>
+          <div class="pfeat">Natural language interface: plain English questions, SQL-validated answers with source attribution</div>
+          <div class="pfeat">Monday morning intelligence brief auto-delivered to WhatsApp or email</div>
+        </div>
+        <div class="pquote"><div class="pqt">"I've run the weekly production review. I know what a COO asks on Monday morning. No existing tool answers it without two days of analyst prep. That gap — between what the software promises and what the floor needs — is the product."</div></div>
+      </div>
+      <div class="ppr">
+        <div class="plbl" style="margin-top:0">Artifacts Produced</div>
+        <div class="ptxt">Product specification complete · Wireframe prototype · Connector framework · KPI definitions with edge cases · Alert logic · LLM architecture with SQL validation guardrails · Gaps analysis across compliance, mobile, onboarding, ecosystem integrations</div>
+        <div class="plbl">Why This Product Has Staying Power</div>
+        <div class="ptxt">LoomIQ ships pre-loaded with causal relationships that matter in manufacturing. <strong>That domain knowledge doesn't live in any API — it lives in operations people who've run production reviews for years.</strong> Products that encode domain knowledge compound with every customer and every data cycle. Generic tools can add features. They cannot add the years of floor-level pattern recognition that makes the intelligence layer actually work.</div>
+        <div class="plbl">Market</div>
+        <div class="ptxt">India has approximately 17,000 registered garment manufacturers (Appareify, 2023). The addressable segment — manufacturers with ERP, multiple production lines, and scale enough to feel the weekly review problem acutely — is a subset of large and mid-large units. <strong>Priced at ₹50K–2.5L/month, positioned below enterprise analytics and above Excel — in the gap where the real decision-making pain lives.</strong></div>
+        <div class="pmetrics">
+          <div class="pm"><div class="pm-n">~17K</div><div class="pm-l">Garment manufacturers in India</div></div>
+          <div class="pm"><div class="pm-n">2 days</div><div class="pm-l">Saved per weekly production review</div></div>
+          <div class="pm"><div class="pm-n">₹50K–2.5L</div><div class="pm-l">Monthly pricing range per unit</div></div>
+          <div class="pm"><div class="pm-n">Predictive<br>Intelligence</div><div class="pm-l">Core product capability</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ppanel" id="pp-supplier">
+      <div class="ppl">
+        <div class="p-ey">Supply Chain Intelligence · Delivered at Scale</div>
+        <div class="p-nm">Supplier Intelligence Layer</div>
+        <div class="p-tg">The vendor scorecard that actually gets used — automatic, honest, feeding directly back into sourcing decisions.</div>
+        <div class="plbl">The Observation</div>
+        <div class="ptxt">Enterprise SRM tools technically have scorecard modules. Almost nobody uses them — they require consultant configuration, manual updates, and don't feed back into "who gets the next PO." <strong>Most manufacturers track vendor reliability in someone's head or a stale Excel sheet.</strong> The data to build a live scorecard already exists in every ERP. The gap is the layer that connects it and makes the output actionable.</div>
+        <div class="plbl">The Research Insight</div>
+        <div class="ptxt">Average lead times hide variance. <strong>The signal that predicts supplier reliability is how a vendor communicates when something goes wrong</strong> — not their average when everything runs smoothly. Building systems that capture exception behavior is where sourcing intelligence becomes genuinely useful.</div>
+        <div class="plbl">What Was Built</div>
+        <div class="pfeats">
+          <div class="pfeat">Auto-generated vendor scorecard from ERP GRN data — no manual entry, no consultant to maintain</div>
+          <div class="pfeat">Variance tracking: how vendors behave under pressure is more predictive than their average</div>
+          <div class="pfeat">TnA alert system: at-risk deliveries flagged before the delay is confirmed</div>
+          <div class="pfeat">Sourcing recommendation: best vendor by category on live performance, not relationship</div>
+          <div class="pfeat">3-cohort onboarding model with SLA accountability and vendor success motion</div>
+        </div>
+        <div class="pquote"><div class="pqt">"Vendor scorecard data exists in every ERP. Nobody reads it — extracting it requires a data pull, a join across three tables, and someone to clean it before the Monday meeting. Automating that layer moves OTIF."</div></div>
+      </div>
+      <div class="ppr">
+        <div class="plbl" style="margin-top:0">Delivered Outcomes</div>
+        <div class="ptxt">A version of this was delivered at Shahi Exports for 800+ vendors across procurement and logistics. The hardest part wasn't the technology — it was building a vendor success motion that made adoption stick.</div>
+        <div class="pmetrics">
+          <div class="pm"><div class="pm-n">+22%</div><div class="pm-l">OTIF improvement</div></div>
+          <div class="pm"><div class="pm-n">−30%</div><div class="pm-l">Lead time reduction</div></div>
+          <div class="pm"><div class="pm-n">800+</div><div class="pm-l">Vendors onboarded</div></div>
+          <div class="pm"><div class="pm-n">3</div><div class="pm-l">Cohort onboarding model</div></div>
+        </div>
+        <div class="plbl">The Broader Thesis</div>
+        <div class="ptxt">60–70% of delivery risk originates outside the factory. <strong>The tools for internal visibility are mature. Supplier-side intelligence is the most underserved layer in the entire manufacturing stack</strong> — and the highest ROI for any manufacturer serious about OTIF.</div>
+      </div>
+    </div>
+
+    <div class="ppanel" id="pp-vendor">
+      <div class="ppl">
+        <div class="p-ey">SMB Operations · India · 63M MSME Market</div>
+        <div class="p-nm">VendorLedger</div>
+        <div class="p-tg">A vendor payment OS for Indian SMBs — because WhatsApp and memory aren't a system.</div>
+        <div class="plbl">The Observation</div>
+        <div class="ptxt">At Shahi, vendor coordination happens through structured systems, formal SLAs, and real-time visibility. The small businesses supplying to enterprises manage the same coordination on a phone. The daily question "did we pay the packaging supplier?" takes 30 minutes to answer and still sometimes gets wrong. <strong>Accounting software is too complex. Khatabook is a ledger, not a payment orchestration tool.</strong> That gap is where the SMB owner actually lives.</div>
+        <div class="plbl">What Was Built</div>
+        <div class="pfeats">
+          <div class="pfeat">Vendor log with payment terms — 30-day, 60-day, per-order — set once, tracked forever</div>
+          <div class="pfeat">Invoice photo → OCR: amount and date extracted automatically, no manual entry</div>
+          <div class="pfeat">Daily dashboard: pay today, due this week, overdue — a decision surface, not a report</div>
+          <div class="pfeat">One-tap UPI payment link generation per vendor</div>
+          <div class="pfeat">WhatsApp integration: auto-send payment confirmations to vendors</div>
+          <div class="pfeat">Vendor reliability scoring across payment history</div>
+        </div>
+        <div class="pquote"><div class="pqt">"Enterprise has Ariba. The 10-person business supplying to enterprises has a notebook. That gap is enormous, completely underserved, and directly in the path of India's formalization story."</div></div>
+      </div>
+      <div class="ppr">
+        <div class="plbl" style="margin-top:0">The Data Moat</div>
+        <div class="ptxt">Once a business loads their vendor data, switching cost is structural. The accumulated payment patterns and vendor reliability data become a trade credit and lending infrastructure product. <strong>Stickiness builds from day one.</strong></div>
+        <div class="pmetrics">
+          <div class="pm"><div class="pm-n pm-anim" data-val="63">0</div><div class="pm-l">Million MSMEs — addressable market</div></div>
+          <div class="pm"><div class="pm-n">~30 min</div><div class="pm-l">Saved daily per business owner</div></div>
+          <div class="pm"><div class="pm-n">₹0</div><div class="pm-l">Cost of missed payments — eliminated</div></div>
+          <div class="pm"><div class="pm-n">Day 1</div><div class="pm-l">Switching cost begins building</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ppanel" id="pp-quote">
+      <div class="ppl">
+        <div class="p-ey">SMB Operations · Custom Order Businesses · India</div>
+        <div class="p-nm">QuoteKit</div>
+        <div class="p-tg">Speed of quoting is often speed of winning. The enterprise has solved this. The 10-person shop hasn't.</div>
+        <div class="plbl">The Observation</div>
+        <div class="ptxt">The RFQ and quoting process is solved at enterprise scale — Ariba, Coupa, Jaggaer. For the printing shop, fabricator, garment exporter, or caterer, it is a calculator, a Word document, and mental math. <strong>A customer asks for a quote, and the business either calls back two hours later or sends a number that hasn't been carefully costed.</strong> Both lose deals.</div>
+        <div class="plbl">What Was Built</div>
+        <div class="pfeats">
+          <div class="pfeat">Template-based quote builder — define materials, labor rates, markup once; apply to every order</div>
+          <div class="pfeat">Custom parameters: quantity tiers, rush fees, material variants — calculated automatically</div>
+          <div class="pfeat">Auto-calculate: cost breakdown, margin, final price</div>
+          <div class="pfeat">One-click branded PDF generation</div>
+          <div class="pfeat">WhatsApp share: professional quote to client in two taps</div>
+          <div class="pfeat">Win rate analytics: which products, price points, clients convert</div>
+        </div>
+        <div class="pquote"><div class="pqt">"The printing shop sending a WhatsApp voice note with a rough number is losing to the competitor who sends a professional PDF in 20 minutes. The gap is real and the tool is obvious."</div></div>
+      </div>
+      <div class="ppr">
+        <div class="plbl" style="margin-top:0">Monetization</div>
+        <div class="ptxt">Free: up to 5 quotes/month. ₹299/month: unlimited + branded PDF. ₹799/month: multi-user + CRM + win rate analytics by product type.</div>
+        <div class="pmetrics">
+          <div class="pm"><div class="pm-n">&lt;2 min</div><div class="pm-l">Time to professional quote — was 2+ hours</div></div>
+          <div class="pm"><div class="pm-n">~40%</div><div class="pm-l">Win rate improvement with faster response</div></div>
+          <div class="pm"><div class="pm-n">Zero</div><div class="pm-l">Pricing errors from mental math</div></div>
+          <div class="pm"><div class="pm-n">₹299/mo</div><div class="pm-l">Paid tier — less than one lost quote</div></div>
+        </div>
+        <div class="plbl">The Structural Edge</div>
+        <div class="ptxt">Understanding how cost structures work in manufacturing — materials, labor, overhead, margin — is not intuitive for a software product designer. <strong>It is intuitive for someone who has spent four years inside a manufacturer.</strong> That domain knowledge makes the product design more accurate for the people who need it.</div>
+      </div>
+    </div>
+
+    <div class="ppanel" id="pp-order">
+      <div class="ppl">
+        <div class="p-ey">SMB Operations · WhatsApp-Native · India</div>
+        <div class="p-nm">OrderFlow</div>
+        <div class="p-tg">An operations layer for businesses that run on WhatsApp — structure above the chaos, not a replacement for it.</div>
+        <div class="plbl">The Observation</div>
+        <div class="ptxt">Small businesses run their entire operation on WhatsApp. Dukaan and Bikayi built storefronts. <strong>Nobody built the operations layer behind the storefront.</strong> The business owner carries it all in their head. Orders fall through. Payments get missed. The chaos is structural — and it is a product category that doesn't yet exist.</div>
+        <div class="plbl">What Was Built</div>
+        <div class="pfeats">
+          <div class="pfeat">WhatsApp order parsing: tag a message, it becomes a structured order card</div>
+          <div class="pfeat">Pipeline view: received → confirmed → in production → dispatched → paid</div>
+          <div class="pfeat">Customer history: every order, every interaction, searchable in seconds</div>
+          <div class="pfeat">Payment follow-up: automated reminders at due date, no manual chasing</div>
+          <div class="pfeat">Vendor linkage: connect orders to supplier POs</div>
+          <div class="pfeat">Daily 9 AM brief: what's pending, what needs action — delivered to WhatsApp</div>
+        </div>
+        <div class="pquote"><div class="pqt">"At Shahi we coordinate across 800 vendors with structured systems and real-time visibility. The vendors on the other end are managing the same coordination on a phone with no system. That asymmetry is a product."</div></div>
+      </div>
+      <div class="ppr">
+        <div class="plbl" style="margin-top:0">The Stickiness Model</div>
+        <div class="ptxt">Once a business loads customer history and order patterns, switching becomes genuinely painful. <strong>The data moat builds from day one</strong> — not from a future network effect, but from the simple fact that a business's entire operational history is inside the product.</div>
+        <div class="pmetrics">
+          <div class="pm"><div class="pm-n">100%</div><div class="pm-l">Order visibility — was zero</div></div>
+          <div class="pm"><div class="pm-n">~45 min</div><div class="pm-l">Saved daily on status tracking</div></div>
+          <div class="pm"><div class="pm-n">Zero</div><div class="pm-l">Orders falling through — eliminated</div></div>
+          <div class="pm"><div class="pm-n">500M+</div><div class="pm-l">WhatsApp users in India — native channel</div></div>
+        </div>
+        <div class="plbl">The Competitive Insight</div>
+        <div class="ptxt">Dukaan built the storefront. Khatabook built the ledger. Zoho built the suite too complex for a 10-person business. <strong>The operations layer — what's ordered, in progress, pending payment — is unoccupied territory.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PRINCIPLES
+══════════════════════════════════════════ -->
+<section class="prin-sect sect" id="principles">
+  <div class="sect-ey" data-n="05"><div class="sect-ey-inner"><span class="eydash"></span>How the Work Gets Done</div></div>
+  <h2 class="sect-t rv">Operating principles from programs<br>that succeeded and programs that didn't</h2>
+  <p class="sect-lead rv">Not frameworks. Observed patterns — the consistent difference between programs that changed something and programs that declared victory at go-live.</p>
+  <div class="prings">
+    <div class="pring rv"><div class="pring-ov"></div><div class="pring-n">01</div><div class="pring-title">Sequence before sophistication</div><div class="pring-body">The most common failure mode in manufacturing transformation is deploying the right technology at the wrong stage of organizational readiness. Data discipline before analytics. Operational visibility before AI. Getting the sequence right is a more valuable capability than knowing which technology to deploy.</div><div class="pring-bg">01</div></div>
+    <div class="pring rv" style="transition-delay:.08s"><div class="pring-ov"></div><div class="pring-n">02</div><div class="pring-title">Scope around the business, not the software</div><div class="pring-body">When technology vendors define scope, scope reflects the product's capabilities. When the business problem defines scope, implementations are smaller, faster, and more likely to change something. The discipline is resisting the feature expansion that comes standard with every enterprise software sale.</div><div class="pring-bg">02</div></div>
+    <div class="pring rv" style="transition-delay:.16s"><div class="pring-ov"></div><div class="pring-n">03</div><div class="pring-title">Design for the exception, not the happy path</div><div class="pring-body">Most systems are built assuming people will use them correctly. On a manufacturing floor under deadline pressure, they won't. Designing the compliant behavior to be easier than the workaround — that's where adoption is actually won or lost.</div><div class="pring-bg">03</div></div>
+    <div class="pring rv" style="transition-delay:.08s"><div class="pring-ov"></div><div class="pring-n">04</div><div class="pring-title">Pilot with a genuine feedback loop</div><div class="pring-body">A pilot that can't change the standard configuration before rollout is a demonstration, not a pilot. The value is the learning it produces and whether that learning makes it into the next 22 sites. Most programs treat the pilot as a checkbox and wonder why site 15 looks like site 1.</div><div class="pring-bg">04</div></div>
+    <div class="pring rv" style="transition-delay:.16s"><div class="pring-ov"></div><div class="pring-n">05</div><div class="pring-title">Measure business outcomes, not project KPIs</div><div class="pring-body">A program can go green on every project KPI — budget, timeline, training completion — and have zero impact on OTIF, throughput, or defect rate. Building the measurement framework around business outcomes from day one is the only way to know whether the transformation actually happened.</div><div class="pring-bg">05</div></div>
+    <div class="pring rv" style="transition-delay:.24s"><div class="pring-ov"></div><div class="pring-n">06</div><div class="pring-title">Domain knowledge is the moat</div><div class="pring-body">Generic tools fail in manufacturing because they don't understand that an efficiency drop on Line 4 plus a material shortfall in fabric category B means a delivery risk three weeks out. Products and programs that encode domain knowledge are defensible in a way that features alone never are.</div><div class="pring-bg">06</div></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════ -->
+<section class="contact-sect" id="contact">
+  <div class="rvl">
+    <div class="sect-ey" data-n="06" style="color:rgba(200,146,42,.85)"><span class="eydash" style="background:rgba(200,146,42,.6)"></span>Contact</div>
+    <div class="contact-hl">Let's work on<br>something <em>that matters</em></div>
+    <p class="contact-desc">Open to conversations around strategy and transformation consulting, product leadership, and founder's-office roles — particularly where manufacturing operations, supply chain intelligence, or industrial technology sit at the centre of the problem. A point of view and a track record, not just a skill set.</p>
+    <div class="cbtns">
+      <a href="mailto:hemanth.penumala@gmail.com" class="btnfill"><span>Send an Email</span></a>
+      <span class="btnline" style="opacity:.5;cursor:default">Download CV</span>
+    </div>
+  </div>
+  <div class="rvr">
+    <div class="citems">
+      <a href="mailto:hemanth.penumala@gmail.com" class="citem"><div class="citem-icon">✉</div><div><div class="citem-lbl">Email</div><div class="citem-val">hemanth.penumala@gmail.com</div></div></a>
+      <a href="https://www.linkedin.com/in/hemanthchandrap/" target="_blank" class="citem"><div class="citem-icon">↗</div><div><div class="citem-lbl">LinkedIn</div><div class="citem-val">linkedin.com/in/hemanthchandrap</div></div></a>
+      <div class="citem"><div class="citem-icon">◎</div><div><div class="citem-lbl">Location</div><div class="citem-val">Bangalore, India · Open to relocation</div></div></div>
+      <div class="citem"><div class="citem-icon">◈</div><div><div class="citem-lbl">Currently</div><div class="citem-val">Transformation Lead · Shahi Exports · Exploring next chapter</div></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fl">Hemanth Penumala · Manufacturing & Transformation</div>
+  <div class="fr">IIM Kozhikode · Shahi Exports · Deloitte India · Bangalore</div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════
+   SMOOTH SCROLL
+═══════════════════════════════════════ */
+function nav(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
+
+/* ═══════════════════════════════════════
+   CURSOR + TRAIL
+═══════════════════════════════════════ */
+const CD=document.getElementById('CD'),CR=document.getElementById('CR'),CUR=document.getElementById('CUR');
+let mx=0,my=0,rx=0,ry=0;
+const trail=[];
+for(let i=0;i<8;i++){const d=document.createElement('div');d.className='trail-dot';document.body.appendChild(d);trail.push({el:d,x:0,y:0});}
+let trailPositions=[];
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  CUR.style.left=mx+'px';CUR.style.top=my+'px';
+  trailPositions.unshift({x:mx,y:my});
+  if(trailPositions.length>trail.length)trailPositions.pop();
+});
+
+(function animCursor(){
+  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+  CR.style.left=rx+'px';CR.style.top=ry+'px';
+  trail.forEach((t,i)=>{
+    const pos=trailPositions[i]||{x:mx,y:my};
+    t.el.style.left=pos.x+'px';
+    t.el.style.top=pos.y+'px';
+    t.el.style.opacity=(1-i/trail.length)*.35+'';
+    t.el.style.transform=`translate(-50%,-50%) scale(${1-i/trail.length*.6})`;
+  });
+  requestAnimationFrame(animCursor);
+})();
+
+document.querySelectorAll('a,button,span[onclick],.tcard,.pring,.bc,.pcard,.hstat,.msc,.ptab').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+/* ═══════════════════════════════════════
+   PROGRESS + NAV + SCROLL HINT
+═══════════════════════════════════════ */
+const scrollHint=document.getElementById('SCROLLHINT');
+// Remove from DOM after animation completes (1.7s delay + 1s duration = 2.7s)
+if(scrollHint) setTimeout(()=>{ scrollHint.remove(); }, 3200);
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  document.getElementById('PROG').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  document.getElementById('NAV').classList.toggle('stuck',window.scrollY>60);
+  if(scrollHint && window.scrollY>20){ scrollHint.style.opacity='0'; setTimeout(()=>scrollHint.remove(),600); }
+},{passive:true});
+
+/* ═══════════════════════════════════════
+   HERO CANVAS — PARTICLES
+═══════════════════════════════════════ */
+const hc=document.getElementById('HCANV'),hx=hc.getContext('2d');
+let W,H,pts=[];
+function rsz(){W=hc.width=window.innerWidth;H=hc.height=window.innerHeight}
+rsz();window.addEventListener('resize',rsz);
+class Pt{
+  constructor(){this.reset()}
+  reset(){this.x=Math.random()*W;this.y=Math.random()*H;this.vx=(Math.random()-.5)*.18;this.vy=(Math.random()-.5)*.18;this.r=Math.random()*1.1+.3;this.a=Math.random()*.22+.04;this.gold=Math.random()>.72}
+  draw(){hx.beginPath();hx.arc(this.x,this.y,this.r,0,Math.PI*2);hx.fillStyle=this.gold?`rgba(168,115,26,${this.a})`:`rgba(26,23,20,${this.a*.35})`;hx.fill()}
+  update(hmx,hmy){
+    const dx=this.x-hmx,dy=this.y-hmy,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<110){const f=.22*(1-d/110);this.vx+=dx/d*f*.022;this.vy+=dy/d*f*.022}
+    this.vx*=.99;this.vy*=.99;this.x+=this.vx;this.y+=this.vy;
+    if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset();
+  }
+}
+for(let i=0;i<80;i++)pts.push(new Pt());
+let hmx=W/2,hmy=H/2;
+document.addEventListener('mousemove',e=>{hmx=e.clientX;hmy=e.clientY});
+function drawConns(){
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<95){hx.beginPath();hx.moveTo(pts[i].x,pts[i].y);hx.lineTo(pts[j].x,pts[j].y);hx.strokeStyle=`rgba(168,115,26,${.05*(1-d/95)})`;hx.lineWidth=.4;hx.stroke()}
+  }
+}
+(function animH(){hx.clearRect(0,0,W,H);pts.forEach(p=>{p.update(hmx,hmy);p.draw()});drawConns();requestAnimationFrame(animH)})();
+
+/* ═══════════════════════════════════════
+   HERO HEADLINE — WORD BY WORD
+═══════════════════════════════════════ */
+const headline=[
+  {text:'The thinking that',class:''},
+  {text:"shapes India's",class:'gold-line'},
+  {text:'industrial future',class:''}
+];
+const htEl=document.getElementById('HTITLE');
+headline.forEach((line,li)=>{
+  const lineDiv=document.createElement('div');
+  lineDiv.style.display='block';
+  const words=line.text.split(' ');
+  words.forEach((word,wi)=>{
+    const hw=document.createElement('span');hw.className='hw';
+    const inner=document.createElement('span');inner.className='hw-inner'+(line.class?' '+line.class:'');
+    inner.textContent=word;
+    inner.style.animationDelay=(0.28+li*.18+wi*.08)+'s';
+    hw.appendChild(inner);lineDiv.appendChild(hw);
+  });
+  htEl.appendChild(lineDiv);
+});
+
+/* ═══════════════════════════════════════
+   TYPEWRITER
+═══════════════════════════════════════ */
+const phrases=['That thinking is in short supply.','Shahi Exports · Deloitte · IIM Kozhikode.','The sequencing problem most programs miss.','Building products that close the gap.','Strategy · Execution · Product.'];
+let pi=0,ci=0,del=false;
+const tw=document.getElementById('TW');
+function tick(){
+  if(!del){tw.textContent=phrases[pi].slice(0,++ci);if(ci>=phrases[pi].length){del=true;setTimeout(tick,2100);return}}
+  else{tw.textContent=phrases[pi].slice(0,--ci);if(ci<=0){del=false;pi=(pi+1)%phrases.length;setTimeout(tick,380);return}}
+  setTimeout(tick,del?40:68);
+}
+setTimeout(tick,1900);
+
+/* ═══════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════ */
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');ro.unobserve(x.target)}}),{threshold:.07});
+document.querySelectorAll('.rv,.rvl,.rvr,.rvs').forEach(el=>ro.observe(el));
+
+/* ═══════════════════════════════════════
+   ODOMETER COUNTERS
+═══════════════════════════════════════ */
+function runOdo(el){
+  const target=parseInt(el.dataset.target);
+  const st=performance.now();
+  (function step(now){
+    const p=Math.min((now-st)/1600,1),ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(target*ease)+'%';
+    if(p<1)requestAnimationFrame(step);
+  })(performance.now());
+}
+const odoObs=new IntersectionObserver(e=>e.forEach(x=>{
+  if(x.isIntersecting){
+    x.target.querySelectorAll('.odo-digit').forEach(runOdo);
+    odoObs.unobserve(x.target);
+  }
+}),{threshold:.3});
+document.querySelectorAll('.odo-row').forEach(el=>odoObs.observe(el));
+
+/* ═══════════════════════════════════════
+   MATURITY BAR CHART
+═══════════════════════════════════════ */
+const matData=[
+  {name:'Germany / Advanced',color:'#3d5c38',score:'3.87',dims:[{l:'Shop Floor Data',v:.95},{l:'Supplier Visibility',v:.92},{l:'Analytics Use',v:.90},{l:'AI Adoption',v:.87},{l:'Digital-Physical',v:.93},{l:'Workforce Digital',v:.89}]},
+  {name:'China',color:'#3d5266',score:'3.72',dims:[{l:'Shop Floor Data',v:.90},{l:'Supplier Visibility',v:.87},{l:'Analytics Use',v:.85},{l:'AI Adoption',v:.92},{l:'Digital-Physical',v:.82},{l:'Workforce Digital',v:.80}]},
+  {name:'Vietnam · Bangladesh',color:'#5b6b3d',score:'2.48',dims:[{l:'Shop Floor Data',v:.62},{l:'Supplier Visibility',v:.55},{l:'Analytics Use',v:.45},{l:'AI Adoption',v:.35},{l:'Digital-Physical',v:.50},{l:'Workforce Digital',v:.48}]},
+  {name:'India (Large Units)',color:'#a8731a',score:'2.08',dims:[{l:'Shop Floor Data',v:.50},{l:'Supplier Visibility',v:.38},{l:'Analytics Use',v:.35},{l:'AI Adoption',v:.30},{l:'Digital-Physical',v:.42},{l:'Workforce Digital',v:.38}]},
+  {name:'India (Mid-Market)',color:'#b85030',score:'1.18',dims:[{l:'Shop Floor Data',v:.25},{l:'Supplier Visibility',v:.18},{l:'Analytics Use',v:.15},{l:'AI Adoption',v:.12},{l:'Digital-Physical',v:.20},{l:'Workforce Digital',v:.18}]}
+];
+const mb=document.getElementById('MATBARS');
+matData.forEach(c=>{
+  const div=document.createElement('div');div.className='mc';
+  div.innerHTML=`<div class="mc-hd"><div class="mc-name">${c.name}</div><div class="mc-score">${c.score}/5.0 avg</div></div><div class="mc-bars-list">${c.dims.map(d=>`<div class="mc-row"><div class="mc-lbl">${d.l}</div><div class="mc-track"><div class="mc-fill" style="background:${c.color}" data-w="${d.v*100}"></div></div><div class="mc-val">${Math.round(d.v*100)}%</div></div>`).join('')}</div>`;
+  mb.appendChild(div);
+});
+const barObs=new IntersectionObserver(e=>e.forEach(x=>{
+  if(x.isIntersecting){
+    x.target.querySelectorAll('.mc-fill').forEach((b,i)=>{setTimeout(()=>{b.style.width=b.dataset.w+'%'},i*55)});
+    barObs.unobserve(x.target);
+  }
+}),{threshold:.1});
+barObs.observe(mb);
+
+/* ═══════════════════════════════════════
+   RADAR CANVAS
+═══════════════════════════════════════ */
+const rc=document.getElementById('RCANV'),rx2=rc.getContext('2d');
+const CX=190,CY=190,R=138;
+const axes=['Shop Floor\nData','Supplier\nVisibility','Analytics\nUse','AI Adoption','Digital-\nPhysical','Workforce\nDigital'];
+const rds=[
+  {label:'Germany',color:'rgba(61,92,56',vals:[.95,.92,.9,.87,.93,.89]},
+  {label:'China',color:'rgba(61,82,102',vals:[.9,.87,.85,.92,.82,.8]},
+  {label:'India',color:'rgba(168,115,26',vals:[.5,.38,.35,.3,.42,.38]}
+];
+function ptAt(v,i,tot){const a=(-Math.PI/2)+(2*Math.PI*i/tot);return{x:CX+Math.cos(a)*R*v,y:CY+Math.sin(a)*R*v}}
+function drawRadar(prog){
+  rx2.clearRect(0,0,380,380);
+  [.25,.5,.75,1].forEach(r=>{rx2.beginPath();for(let i=0;i<6;i++){const p=ptAt(r,i,6);i===0?rx2.moveTo(p.x,p.y):rx2.lineTo(p.x,p.y)}rx2.closePath();rx2.strokeStyle='rgba(26,23,20,0.08)';rx2.lineWidth=1;rx2.stroke()});
+  for(let i=0;i<6;i++){const p=ptAt(1,i,6);rx2.beginPath();rx2.moveTo(CX,CY);rx2.lineTo(p.x,p.y);rx2.strokeStyle='rgba(26,23,20,0.08)';rx2.lineWidth=1;rx2.stroke()}
+  rx2.font='8px JetBrains Mono,monospace';rx2.fillStyle='rgba(26,23,20,0.42)';rx2.textAlign='center';
+  axes.forEach((lbl,i)=>{const a=(-Math.PI/2)+(2*Math.PI*i/6),d=R+22,x=CX+Math.cos(a)*d,y=CY+Math.sin(a)*d;lbl.split('\n').forEach((l,li)=>rx2.fillText(l,x,y+li*10))});
+  rds.forEach((ds,di)=>{
+    const p=Math.min(prog-di*.22,1);if(p<=0)return;
+    rx2.beginPath();ds.vals.forEach((v,i)=>{const pt=ptAt(v*p,i,6);i===0?rx2.moveTo(pt.x,pt.y):rx2.lineTo(pt.x,pt.y)});
+    rx2.closePath();rx2.fillStyle=ds.color+',0.12)';rx2.fill();
+    rx2.strokeStyle=ds.color+(di===2?',.85)':',.55)');rx2.lineWidth=di===2?2:1.5;rx2.stroke();
+  });
+  [[.25,'L1'],[.5,'L2'],[.75,'L3'],[1,'L4']].forEach(([r,l])=>{rx2.font='7px JetBrains Mono,monospace';rx2.fillStyle='rgba(26,23,20,0.2)';rx2.fillText(l,CX+4,CY-R*r+3)});
+}
+drawRadar(0);
+const rrob=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){let p=0;(function a(){p+=.015;drawRadar(p);if(p<1.4)requestAnimationFrame(a)})();rrob.unobserve(x.target)}})},{threshold:.25});
+rrob.observe(rc);
+
+/* ═══════════════════════════════════════
+   SEQUENCING TIMELINE
+═══════════════════════════════════════ */
+const seqi=document.getElementById('SEQI');
+document.querySelectorAll('.sstep').forEach(s=>{
+  s.addEventListener('mouseenter',()=>{seqi.textContent=s.dataset.info||'';seqi.classList.add('show')});
+  s.addEventListener('mouseleave',()=>seqi.classList.remove('show'));
+});
+const sqob=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){setTimeout(()=>{document.getElementById('SEQP').style.width='36%'},600);sqob.unobserve(x.target)}})},{threshold:.4});
+const seqt=document.getElementById('SEQT');if(seqt)sqob.observe(seqt);
+
+/* ═══════════════════════════════════════
+   TRACK ACCORDION
+═══════════════════════════════════════ */
+function toggleT(c){const o=c.classList.contains('open');document.querySelectorAll('.tcard').forEach(x=>x.classList.remove('open'));if(!o)c.classList.add('open')}
+
+/* ═══════════════════════════════════════
+   PRODUCTS TABS + FEATURE STAGGER + METRIC COUNTERS
+═══════════════════════════════════════ */
+function showP(id,btn){
+  document.querySelectorAll('.ppanel').forEach(p=>p.classList.remove('a'));
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('a'));
+  const panel=document.getElementById('pp-'+id);
+  panel.classList.add('a');btn.classList.add('a');
+
+  // Stagger feature list items
+  const feats=panel.querySelector('.pfeats');
+  if(feats){
+    feats.classList.remove('visible');
+    void feats.offsetWidth; // force reflow
+    setTimeout(()=>feats.classList.add('visible'),80);
+  }
+
+  // Animate metric numbers
+  panel.querySelectorAll('.pm-n[data-val]').forEach(el=>{
+    const target=parseInt(el.dataset.val);
+    if(isNaN(target))return;
+    const st=performance.now();
+    (function step(now){
+      const p=Math.min((now-st)/1000,1),e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*e)+'M';
+      if(p<1)requestAnimationFrame(step);
+    })(performance.now());
+  });
+
+  // Trigger underline on tagline
+  const tg=panel.querySelector('.p-tg');
+  if(tg){tg.style.setProperty('--tw','0');setTimeout(()=>tg.style.setProperty('--tw','3rem'),100);}
+}
+
+/* ═══════════════════════════════════════
+   MAGNETIC EFFECT — PRINCIPLES
+═══════════════════════════════════════ */
+document.querySelectorAll('.pring').forEach(c=>{
+  c.addEventListener('mousemove',e=>{
+    const r=c.getBoundingClientRect(),x=(e.clientX-r.left-r.width/2)/r.width*10,y=(e.clientY-r.top-r.height/2)/r.height*7;
+    c.style.transform=`translate(${x}px,${y}px) translateY(-3px)`;
+  });
+  c.addEventListener('mouseleave',()=>c.style.transform='');
+});
+
+/* ═══════════════════════════════════════
+   TILT EFFECT — POV CARDS
+═══════════════════════════════════════ */
+document.querySelectorAll('.pcard').forEach(c=>{
+  c.addEventListener('mousemove',e=>{
+    const r=c.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5;
+    const y=(e.clientY-r.top)/r.height-.5;
+    c.style.transform=`translateY(-6px) rotateX(${-y*6}deg) rotateY(${x*6}deg)`;
+    c.style.transformStyle='preserve-3d';
+  });
+  c.addEventListener('mouseleave',()=>{c.style.transform='';});
+});
+
+/* ═══════════════════════════════════════
+   INITIAL FEATURE LIST STAGGER ON LOAD
+═══════════════════════════════════════ */
+setTimeout(()=>{
+  const firstFeats=document.querySelector('#pp-loomiq .pfeats');
+  if(firstFeats)firstFeats.classList.add('visible');
+},600);
+
+/* ═══════════════════════════════════════
+   SCROLL PARALLAX ON TRACK CARDS
+═══════════════════════════════════════ */
+window.addEventListener('scroll',()=>{
+  document.querySelectorAll('.tcard').forEach((c,i)=>{
+    const r=c.getBoundingClientRect();
+    if(r.top<window.innerHeight&&r.bottom>0){
+      const prog=(window.innerHeight-r.top)/(window.innerHeight+r.height);
+      const shift=(prog-.5)*8*(i%2===0?1:-1);
+      if(!c.classList.contains('open'))c.style.transform=`translateX(${shift}px)`;
+    }
+  });
+},{passive:true});
+
+/* ═══════════════════════════════════════
+   SECTION EYEBROW REVEAL
+═══════════════════════════════════════ */
+document.querySelectorAll('.sect-ey').forEach(ey=>{
+  const inner=ey.querySelector('.sect-ey-inner');
+  if(!inner)return;
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){inner.classList.add('show');obs.unobserve(ey)}});
+  },{threshold:.5});
+  obs.observe(ey);
+});
+
+/* ═══════════════════════════════════════
+   MATURITY STAGE CARDS — CLICK TO EXPAND
+═══════════════════════════════════════ */
+document.querySelectorAll('.msc').forEach(c=>{
+  c.addEventListener('click',()=>{
+    document.querySelectorAll('.msc').forEach(x=>x.classList.remove('now'));
+    c.classList.add('now');
+  });
+});
+
+/* ═══════════════════════════════════════
+   STAT CARD HOVER COUNTER
+═══════════════════════════════════════ */
+document.querySelectorAll('.hstat').forEach(s=>{
+  const numEl=s.querySelector('.hstat-num[data-count]');
+  if(!numEl)return;
+  let animated=false;
+  // Animate on first scroll into view
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting&&!animated){
+        animated=true;
+        const target=parseInt(numEl.dataset.count);
+        const suffix=numEl.dataset.suffix||'';
+        const st=performance.now();
+        (function step(now){const p=Math.min((now-st)/1200,1),ease=1-Math.pow(1-p,3);numEl.textContent=Math.round(target*ease)+suffix;if(p<1)requestAnimationFrame(step);})(performance.now());
+        obs.unobserve(s);
+      }
+    });
+  },{threshold:.5});
+  obs.observe(s);
+});
+</script>
+</body>
+</html>
